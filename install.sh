@@ -1,6 +1,6 @@
 #!/bin/sh
 # This code was generated with AI (Claude by Anthropic). MIT License, see LICENSE and README.
-# install.sh: install Autodarts and Darts Scoreboard on a Raspberry Pi running Alpine Linux.
+# install.sh: install Autodarts and the Tikka scoreboard on a Raspberry Pi running Alpine Linux.
 #
 # Run as root on the Pi, in this folder:   sh install.sh
 # (or from your computer: ./deploy.sh, which copies everything over and runs this)

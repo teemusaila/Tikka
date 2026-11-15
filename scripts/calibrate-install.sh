@@ -13,6 +13,9 @@
 # A copy of the calibration from before the run is kept (calibration.json.before); if the new
 # calibration fails, it is put back. The lights go back to the mode they had (usually auto).
 # Auto-calibration needs the internet (Autodarts' servers). Without it the old calibration stays.
+# With Tikka Vision as the board program (board-engine tikka-vision) the same routine runs Tikka Vision' own
+# auto-calibration instead (from the board's rings, no internet needed); the cameras are read
+# by the service all the time, so nothing needs starting first, and a failed run keeps the old calibration.
 # Log: /data/logs/calibrate.log.  Run by hand: darts-calibrate.  Turn off at boot:
 #   echo off > /data/autodarts/boot-calibration      (echo on > ... turns it back on)
 # Re-running this installer is safe.
@@ -40,7 +43,10 @@ mkdir "$LOCKDIR" 2>/dev/null || { echo "Already running."; exit 0; }
 prev=
 lights() { [ -w "$MODE" ] && echo "$1" > "$MODE"; }
 cleanup() {
-  [ -n "$prev" ] && lights "$prev"      # never leave the lights forced on or off
+  # Back to the mode they had, but never leave the lights forced on after a calibration: "on" becomes "auto",
+  # which switches them off once nothing is going on.
+  [ "$prev" = on ] && prev=auto
+  [ -n "$prev" ] && lights "$prev"
   rmdir "$LOCKDIR" 2>/dev/null
 }
 trap cleanup EXIT
@@ -56,6 +62,31 @@ wait_for() {   # wait_for SECONDS COMMAND...
 }
 running() { state | grep -q '"running":true'; }
 stopped() { state | grep -q '"running":false'; }
+
+ENGINE=$(sed -n 's/^BOARD_ENGINE=//p' /data/scoreboard/data/settings 2>/dev/null | head -1)
+if [ "$ENGINE" = tikka-vision ]; then
+  API=http://127.0.0.1:3181
+  log "== boot calibration (Tikka Vision)"
+  wait_for 300 state >/dev/null || { log "Tikka Vision did not answer, giving up"; exit 1; }
+  [ -r "$MODE" ] && prev=$(cat "$MODE")
+  log "lights on (mode was ${prev:-none})"
+  lights on
+  sleep 5
+  log "calibrating"
+  # nc, not wget: when the service refuses (HTTP 422) the reason is in the answer, which wget throws away
+  out=$(printf 'POST /api/config/calibration/auto HTTP/1.0\r\nHost: 127.0.0.1\r\nContent-Length: 0\r\n\r\n' | nc -w 240 127.0.0.1 3181 2>&1 | tail -1)
+  case "$out" in
+    *'"ok": true'*|*'"ok":true'*) log "calibration OK" ;;
+    *) log "calibration FAILED, the old calibration stays: $(echo "$out" | sed 's/.*"message": "\([^"]*\)".*/\1/' | head -c 200)" ;;
+  esac
+  case "$out" in *needs_orientation*) log "the camera ring's turn is not settled yet: throw one dart at the 20 and press Set orientation" ;; esac
+  put /api/stop
+  log "lights off"
+  lights off
+  sleep 6
+  log "done"
+  exit 0
+fi
 
 log "== boot calibration"
 wait_for 300 state >/dev/null || { log "Autodarts did not answer, giving up"; exit 1; }

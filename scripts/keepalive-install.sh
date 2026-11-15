@@ -121,8 +121,28 @@ packages() {
   fi
 }
 
-check autodarts
-cameras
+# Whichever program reads the cameras (board-engine switches it) is the one kept alive.
+ENGINE=$(sed -n 's/^BOARD_ENGINE=//p' /data/scoreboard/data/settings 2>/dev/null | head -1)
+# (pidarts is the name Tikka Vision had before; tikka-vision-install.sh moves the setting over)
+if [ "$ENGINE" = tikka-vision ] || [ "$ENGINE" = pidarts ]; then
+  check tikka-vision "http://127.0.0.1:3181/api/version"   # finds its cameras by USB port and re-opens one that dropped off
+  # ... and that the cameras really deliver pictures. Tikka Vision re-opens a camera itself; if one is still silent at the
+  # next check (5 minutes on), restart the service once and say so.
+  bad=$(wget -qO- -T 5 http://127.0.0.1:3181/api/cams/state 2>/dev/null | grep -o '"[A-Za-z0-9_-]*": {"ok": false' | sed 's/": .*//; s/"//g' | tr '\n' ' ')
+  if [ -n "$bad" ]; then
+    if [ "$(cat /tmp/darts-tikka-vision-bad 2>/dev/null)" = "$bad" ]; then
+      rc-service tikka-vision restart >/dev/null 2>&1; log "camera(s) $bad still silent: Tikka Vision restarted (check cable and power)"
+      rm -f /tmp/darts-tikka-vision-bad
+    else
+      log "camera(s) not delivering pictures: $bad"; echo "$bad" > /tmp/darts-tikka-vision-bad
+    fi
+  else
+    [ -f /tmp/darts-tikka-vision-bad ] && { log "all cameras deliver pictures again"; rm -f /tmp/darts-tikka-vision-bad; }
+  fi
+else
+  check autodarts
+  cameras
+fi
 check scoreboard "http://127.0.0.1:8080/?local"
 check scoreboard-public "http://127.0.0.1:8081/"
 check lights

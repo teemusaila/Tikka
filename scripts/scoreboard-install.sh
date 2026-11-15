@@ -1,6 +1,6 @@
 #!/bin/sh
 # This code was generated with AI (Claude by Anthropic). MIT License, see LICENSE and README.
-# scoreboard-install.sh: Darts Scoreboard, a darts scoreboard and game manager served by the Autodarts Pi.
+# scoreboard-install.sh: Tikka, a darts scoreboard and game manager served by the Autodarts Pi.
 #
 # Run as root:   sh scoreboard-install.sh
 #
@@ -37,15 +37,16 @@ mkdir -p "$DIR"
 cat > "$DIR/app.html" <<'EOF_OCHE'
 <!doctype html>
 <html lang="en">
-<!-- Darts Scoreboard for AutoDarts. This code was generated with AI (Claude by Anthropic). MIT License. -->
+<!-- Tikka, a darts scoreboard for Autodarts boards. This code was generated with AI (Claude by Anthropic). MIT License. -->
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#07090e">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2062%2014%22%20shape-rendering=%22crispEdges%22%3E%3Crect%20x=%2238%22%20y=%220%22%20width=%223%22%20height=%221%22%20fill=%22%23ff0000%22/%3E%3Crect%20x=%2238%22%20y=%221%22%20width=%229%22%20height=%221%22%20fill=%22%23ff0000%22/%3E%3Crect%20x=%2239%22%20y=%222%22%20width=%2210%22%20height=%221%22%20fill=%22%23ff0000%22/%3E%3Crect%20x=%2240%22%20y=%223%22%20width=%229%22%20height=%221%22%20fill=%22%23ff0000%22/%3E%3Crect%20x=%2249%22%20y=%223%22%20width=%221%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%220%22%20y=%224%22%20width=%222%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2239%22%20y=%224%22%20width=%222%22%20height=%221%22%20fill=%22%23ff0000%22/%3E%3Crect%20x=%2241%22%20y=%224%22%20width=%2210%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%220%22%20y=%225%22%20width=%221%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%221%22%20y=%225%22%20width=%221%22%20height=%221%22%20fill=%22%23eeeeee%22/%3E%3Crect%20x=%222%22%20y=%225%22%20width=%222%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2238%22%20y=%225%22%20width=%221%22%20height=%221%22%20fill=%22%23ff0000%22/%3E%3Crect%20x=%2239%22%20y=%225%22%20width=%222%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2241%22%20y=%225%22%20width=%226%22%20height=%221%22%20fill=%22%23eeeeee%22/%3E%3Crect%20x=%2247%22%20y=%225%22%20width=%221%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2248%22%20y=%225%22%20width=%221%22%20height=%221%22%20fill=%22%23000000%22/%3E%3Crect%20x=%2249%22%20y=%225%22%20width=%221%22%20height=%221%22%20fill=%22%23eeeeee%22/%3E%3Crect%20x=%2250%22%20y=%225%22%20width=%222%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%220%22%20y=%226%22%20width=%221%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%221%22%20y=%226%22%20width=%222%22%20height=%221%22%20fill=%22%23eeeeee%22/%3E%3Crect%20x=%223%22%20y=%226%22%20width=%223%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2219%22%20y=%226%22%20width=%2216%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2238%22%20y=%226%22%20width=%222%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2240%22%20y=%226%22%20width=%227%22%20height=%221%22%20fill=%22%23eeeeee%22/%3E%3Crect%20x=%2247%22%20y=%226%22%20width=%221%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2248%22%20y=%226%22%20width=%222%22%20height=%221%22%20fill=%22%23000000%22/%3E%3Crect%20x=%2250%22%20y=%226%22%20width=%222%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2252%22%20y=%226%22%20width=%225%22%20height=%221%22%20fill=%22%23d0d0d0%22/%3E%3Crect%20x=%220%22%20y=%227%22%20width=%222%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%222%22%20y=%227%22%20width=%222%22%20height=%221%22%20fill=%22%23eeeeee%22/%3E%3Crect%20x=%224%22%20y=%227%22%20width=%224%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2215%22%20y=%227%22%20width=%225%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2220%22%20y=%227%22%20width=%222%22%20height=%221%22%20fill=%22%23eeeeee%22/%3E%3Crect%20x=%2222%22%20y=%227%22%20width=%223%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2225%22%20y=%227%22%20width=%221%22%20height=%221%22%20fill=%22%23eeeeee%22/%3E%3Crect%20x=%2226%22%20y=%227%22%20width=%224%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2230%22%20y=%227%22%20width=%221%22%20height=%221%22%20fill=%22%23eeeeee%22/%3E%3Crect%20x=%2231%22%20y=%227%22%20width=%224%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2235%22%20y=%227%22%20width=%221%22%20height=%221%22%20fill=%22%23eeeeee%22/%3E%3Crect%20x=%2236%22%20y=%227%22%20width=%2216%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2252%22%20y=%227%22%20width=%229%22%20height=%221%22%20fill=%22%23d0d0d0%22/%3E%3Crect%20x=%2261%22%20y=%227%22%20width=%221%22%20height=%221%22%20fill=%22%238a8a8a%22/%3E%3Crect%20x=%222%22%20y=%228%22%20width=%222%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%224%22%20y=%228%22%20width=%222%22%20height=%221%22%20fill=%22%23eeeeee%22/%3E%3Crect%20x=%226%22%20y=%228%22%20width=%2211%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2217%22%20y=%228%22%20width=%223%22%20height=%221%22%20fill=%22%23eeeeee%22/%3E%3Crect%20x=%2220%22%20y=%228%22%20width=%226%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2226%22%20y=%228%22%20width=%221%22%20height=%221%22%20fill=%22%23eeeeee%22/%3E%3Crect%20x=%2227%22%20y=%228%22%20width=%224%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2231%22%20y=%228%22%20width=%221%22%20height=%221%22%20fill=%22%23eeeeee%22/%3E%3Crect%20x=%2232%22%20y=%228%22%20width=%224%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2236%22%20y=%228%22%20width=%221%22%20height=%221%22%20fill=%22%23eeeeee%22/%3E%3Crect%20x=%2237%22%20y=%228%22%20width=%222%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2239%22%20y=%228%22%20width=%229%22%20height=%221%22%20fill=%22%23eeeeee%22/%3E%3Crect%20x=%2248%22%20y=%228%22%20width=%224%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2252%22%20y=%228%22%20width=%221%22%20height=%221%22%20fill=%22%238a8a8a%22/%3E%3Crect%20x=%222%22%20y=%229%22%20width=%222%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%224%22%20y=%229%22%20width=%222%22%20height=%221%22%20fill=%22%23eeeeee%22/%3E%3Crect%20x=%226%22%20y=%229%22%20width=%226%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2212%22%20y=%229%22%20width=%223%22%20height=%221%22%20fill=%22%23d70000%22/%3E%3Crect%20x=%2215%22%20y=%229%22%20width=%2224%22%20height=%221%22%20fill=%22%23bcbcbc%22/%3E%3Crect%20x=%2239%22%20y=%229%22%20width=%229%22%20height=%221%22%20fill=%22%23eeeeee%22/%3E%3Crect%20x=%2248%22%20y=%229%22%20width=%223%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%220%22%20y=%2210%22%20width=%222%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%222%22%20y=%2210%22%20width=%222%22%20height=%221%22%20fill=%22%23eeeeee%22/%3E%3Crect%20x=%224%22%20y=%2210%22%20width=%224%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2212%22%20y=%2210%22%20width=%223%22%20height=%221%22%20fill=%22%23d70000%22/%3E%3Crect%20x=%2215%22%20y=%2210%22%20width=%2225%22%20height=%221%22%20fill=%22%23bcbcbc%22/%3E%3Crect%20x=%2240%22%20y=%2210%22%20width=%227%22%20height=%221%22%20fill=%22%23eeeeee%22/%3E%3Crect%20x=%2247%22%20y=%2210%22%20width=%222%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%220%22%20y=%2211%22%20width=%221%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%221%22%20y=%2211%22%20width=%222%22%20height=%221%22%20fill=%22%23eeeeee%22/%3E%3Crect%20x=%223%22%20y=%2211%22%20width=%223%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2214%22%20y=%2211%22%20width=%222%22%20height=%221%22%20fill=%22%23d70000%22/%3E%3Crect%20x=%2216%22%20y=%2211%22%20width=%2225%22%20height=%221%22%20fill=%22%23bcbcbc%22/%3E%3Crect%20x=%2241%22%20y=%2211%22%20width=%224%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%220%22%20y=%2212%22%20width=%221%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%221%22%20y=%2212%22%20width=%221%22%20height=%221%22%20fill=%22%23eeeeee%22/%3E%3Crect%20x=%222%22%20y=%2212%22%20width=%222%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2218%22%20y=%2212%22%20width=%2221%22%20height=%221%22%20fill=%22%23bcbcbc%22/%3E%3Crect%20x=%220%22%20y=%2213%22%20width=%222%22%20height=%221%22%20fill=%22%23444444%22/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Orbitron:wght@500;700;900&display=swap">
-<title>Darts Scoreboard</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Orbitron:wght@500;700;900&family=Press+Start+2P&family=VT323&display=swap">
+<title>Tikka</title>
 <style>
 :root {
   --z: 1;                  /* page scale, set by the script in <head> */
@@ -63,8 +64,8 @@ cat > "$DIR/app.html" <<'EOF_OCHE'
   --green: #a4ff3a;        /* neon lime: checkout, closed */
   --metal-dark: #222c3d;
   --metal-light: #52637a;
-  --line: rgba(0, 229, 255, .2);
-  --halo: 0 0 6px rgba(0, 229, 255, .9), 0 0 22px rgba(0, 229, 255, .55), 0 0 48px rgba(0, 229, 255, .3);
+  --line: rgba(227, 32, 47, .2);
+  --halo: 0 0 6px rgba(227, 32, 47, .9), 0 0 22px rgba(227, 32, 47, .55), 0 0 48px rgba(227, 32, 47, .3);
   --font-hud: "Orbitron", "Russo One", "Rajdhani", "Bahnschrift", system-ui, sans-serif;
   --font: "Chakra Petch", "JetBrains Mono", "Bahnschrift", "DIN Alternate", "Roboto Condensed", system-ui, sans-serif;
 }
@@ -95,7 +96,7 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--glow); outl
 #settings .shead { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 #settings h1 { margin: 0; font-size: 34px; color: var(--glow); text-shadow: var(--halo); }
 #settings h2 { margin: 0 0 8px; font-size: 18px; font-weight: 600; color: var(--wire); }
-.sgroup { padding: 14px 16px; border: 1px solid var(--line); border-radius: 14px; background: rgba(10, 15, 29, .7); max-width: 900px; }
+.sgroup { padding: 14px 16px; border: 1px solid var(--line); border-radius: 14px; background: rgba(22, 19, 18, .7); max-width: 900px; }
 .smsg { margin: 0; min-height: 1.3em; font-size: 15px; color: var(--green); }
 .smsg.err { color: var(--red); }
 .ulist { list-style: none; margin: 0 0 10px; padding: 0; display: grid; gap: 6px; }
@@ -171,7 +172,7 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--glow); outl
 .visit {
   display: grid; grid-template-columns: repeat(3, 1fr) auto; gap: 12px;
   padding: 14px 18px calc(14px + env(safe-area-inset-bottom)); border-top: 1px solid var(--line);
-  background: rgba(10, 15, 29, .85);
+  background: rgba(22, 19, 18, .85);
 }
 .dart {
   min-height: 84px; border-radius: 14px; border: 2px dashed var(--line);
@@ -186,7 +187,7 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--glow); outl
 
 .banner {
   position: fixed; inset: 0; display: none; place-items: center; text-align: center;
-  background: rgba(4, 6, 13, .9); backdrop-filter: blur(4px); z-index: 5; padding: 24px;
+  background: rgba(12, 10, 9, .9); backdrop-filter: blur(4px); z-index: 5; padding: 24px;
 }
 .banner.on { display: grid; }
 .banner h2 { margin: 0 0 8px; font-size: clamp(44px, calc(9vw / var(--z)), 110px); line-height: 1; }
@@ -260,7 +261,7 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--glow); outl
 @media (prefers-reduced-motion: reduce) { .player { transition: none; } }
 
 /* ---------- additions for all games ---------- */
-.manage { margin-top: 14px; padding: 16px; border: 1px solid var(--line); border-radius: 14px; max-width: 640px; background: rgba(10, 15, 29, .7); }
+.manage { margin-top: 14px; padding: 16px; border: 1px solid var(--line); border-radius: 14px; max-width: 640px; background: rgba(22, 19, 18, .7); }
 .manage ul { list-style: none; margin: 0 0 6px; padding: 0; display: grid; gap: 8px; }
 .manage li { display: flex; gap: 8px; align-items: center; }
 .manage li input { flex: 1; min-width: 0; font: inherit; font-size: 19px; padding: 9px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--cabinet-deep); color: var(--sisal); }
@@ -384,8 +385,8 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--glow); outl
 /* ---------- HUD look: steel panels, cyan/orange corner lights, telemetry type ---------- */
 body {
   background:
-    linear-gradient(to right, rgba(0, 229, 255, .05) 1px, transparent 1px) 0 0 / 24px 24px,
-    linear-gradient(to bottom, rgba(0, 229, 255, .05) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(to right, rgba(227, 32, 47, .05) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(to bottom, rgba(227, 32, 47, .05) 1px, transparent 1px) 0 0 / 24px 24px,
     radial-gradient(120% 80% at 50% -10%, #101a2b 0%, var(--cabinet-deep) 62%) fixed, var(--cabinet-deep);
 }
 /* Metallic chrome titles */
@@ -395,12 +396,11 @@ body {
   -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;
   text-shadow: none; filter: drop-shadow(0 2px 4px rgba(0, 0, 0, .9));
 }
-/* Target reticle in front of the main title */
+/* A dart in front of the main title (also the page icon) */
 #setup h1::before {
-  content: ''; display: inline-block; width: .78em; height: .78em; margin-right: .3em; vertical-align: -.08em;
-  border-radius: 50%; border: 2px solid var(--glow); box-shadow: 0 0 12px rgba(0, 229, 255, .45);
-  background: linear-gradient(var(--glow), var(--glow)) center / 2px 100% no-repeat, linear-gradient(var(--glow), var(--glow)) center / 100% 2px no-repeat;
-  -webkit-text-fill-color: initial; outline: 1px dashed rgba(255, 122, 0, .75); outline-offset: 4px;
+  content: ''; display: inline-block; width: .95em; height: .95em; margin-right: .3em; vertical-align: -.12em;
+  background: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2064%2064%22%3E%3Cg%20stroke-linecap=%22round%22%20stroke-linejoin=%22round%22%3E%3Cpath%20d=%22M5%2059%20L15%2049%22%20stroke=%22%23e2e8f0%22%20stroke-width=%223%22/%3E%3Cpath%20d=%22M15%2049%20L30%2034%22%20stroke=%22%2394a3b8%22%20stroke-width=%227%22/%3E%3Cpath%20d=%22M19%2045%20L26%2038%22%20stroke=%22%23475569%22%20stroke-width=%222%22/%3E%3Cpath%20d=%22M30%2034%20L42%2022%22%20stroke=%22%2300e5ff%22%20stroke-width=%223%22/%3E%3Cpath%20d=%22M40%2024%20L43%2011%20L57%207%20L53%2021%20Z%22%20fill=%22%2300e5ff%22%20stroke=%22%2300e5ff%22%20stroke-width=%221%22/%3E%3Cpath%20d=%22M40%2024%20L53%2021%20L57%207%20L47%2015%20Z%22%20fill=%22%23ff7a00%22%20stroke=%22%23ff7a00%22%20stroke-width=%221%22/%3E%3C/g%3E%3C/svg%3E") center / contain no-repeat;
+  filter: drop-shadow(0 0 6px rgba(227, 32, 47, .6));
 }
 #setup h2, #settings h2, .opt-group h3 { font-family: var(--font-hud); font-size: .8em; font-weight: 700; text-transform: uppercase; letter-spacing: .14em; color: var(--wire); }
 #setup h2::before, .opt-group h3::before { content: '◢ '; color: var(--orange); font-size: .8em; }
@@ -416,9 +416,9 @@ body {
 .sgroup::before, .boardview::before, .pboard::before, .pad .sheet::before { top: 0; left: 0; right: 50%; background: linear-gradient(90deg, var(--glow), transparent); }
 .sgroup::after, .boardview::after, .pboard::after, .pad .sheet::after { bottom: 0; left: 50%; right: 0; background: linear-gradient(90deg, transparent, var(--orange)); }
 .pad .sheet { border-top: 0; border-radius: 4px 4px 0 0; }
-.boardview, .pboard { background: var(--surface) linear-gradient(to right, rgba(0, 229, 255, .05) 1px, transparent 1px) 0 0 / 24px 24px, linear-gradient(to bottom, rgba(0, 229, 255, .05) 1px, transparent 1px) 0 0 / 24px 24px; }
+.boardview, .pboard { background: var(--surface) linear-gradient(to right, rgba(227, 32, 47, .05) 1px, transparent 1px) 0 0 / 24px 24px, linear-gradient(to bottom, rgba(227, 32, 47, .05) 1px, transparent 1px) 0 0 / 24px 24px; }
 /* glowing rim round the live board */
-.boardview svg, .pboard svg { filter: drop-shadow(0 0 10px rgba(0, 229, 255, .45)) drop-shadow(0 0 3px rgba(255, 122, 0, .5)); }
+.boardview svg, .pboard svg { filter: drop-shadow(0 0 10px rgba(227, 32, 47, .45)) drop-shadow(0 0 3px rgba(255, 122, 0, .5)); }
 
 /* Player cards */
 .player { position: relative; }
@@ -430,7 +430,7 @@ body {
 .player .score, .pp .big, .total b { font-family: var(--font-hud); font-weight: 900; }
 .player .score, .pp .big { letter-spacing: 0; }
 @media (min-width: 701px) { .player .score { font-size: clamp(52px, 30cqi, 190px); } }
-.player.active { background: linear-gradient(180deg, rgba(0, 229, 255, .1), rgba(0, 229, 255, .02)); box-shadow: inset 0 0 0 1px var(--glow), inset 0 0 60px rgba(0, 229, 255, .16), 0 0 30px rgba(0, 229, 255, .2); }
+.player.active { background: linear-gradient(180deg, rgba(227, 32, 47, .1), rgba(227, 32, 47, .02)); box-shadow: inset 0 0 0 1px var(--glow), inset 0 0 60px rgba(227, 32, 47, .16), 0 0 30px rgba(227, 32, 47, .2); }
 .player.active.bust, .pp.active.bust { background: linear-gradient(180deg, rgba(255, 90, 54, .14), rgba(255, 90, 54, .03)); box-shadow: inset 0 0 0 1px var(--red), inset 0 0 60px rgba(255, 90, 54, .22), 0 0 30px rgba(255, 90, 54, .3); }
 .player.active.bust .name, .player.active.bust .route { color: var(--red); text-shadow: 0 0 10px rgba(255, 90, 54, .7); }
 .player.active.bust .score { color: var(--red); text-shadow: 0 0 6px rgba(255, 90, 54, .9), 0 0 24px rgba(255, 90, 54, .6), 0 0 50px rgba(255, 90, 54, .35); }
@@ -441,7 +441,7 @@ body {
 /* Telemetry tags: chamfered corners, monospaced numerals */
 .player .tag, .ulist .badge {
   border: 0; border-radius: 0; padding: 3px 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em;
-  background: rgba(0, 229, 255, .14); color: var(--glow);
+  background: rgba(227, 32, 47, .14); color: var(--glow);
   clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
 }
 .phits span { border-radius: 0; clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%); border-width: 2px; font-family: var(--font); }
@@ -449,17 +449,17 @@ body {
 /* Chips and buttons: beveled, uppercase; cyan = selected/primary, orange = hover on secondary */
 .chip { border-radius: 0; clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%); border-color: var(--metal-light); background: var(--surface); text-transform: uppercase; letter-spacing: .05em; font-weight: 600; transition: border-color .15s, box-shadow .15s, color .15s; }
 .chip:hover { border-color: var(--orange); color: var(--orange); }
-.chip[aria-pressed="true"] { background: rgba(0, 229, 255, .12); color: var(--glow); border-color: var(--glow); box-shadow: inset 0 0 12px rgba(0, 229, 255, .25); }
+.chip[aria-pressed="true"] { background: rgba(227, 32, 47, .12); color: var(--glow); border-color: var(--glow); box-shadow: inset 0 0 12px rgba(227, 32, 47, .25); }
 .chip[aria-pressed="true"]:hover { color: var(--glow); border-color: var(--glow); }
 .start {
   border-radius: 0; clip-path: polygon(16px 0, 100% 0, calc(100% - 16px) 100%, 0 100%);
   background: var(--elevated); color: var(--glow); border: 2px solid var(--glow);
   font-family: var(--font-hud); font-style: italic; font-weight: 900; text-transform: uppercase; letter-spacing: .08em;
-  box-shadow: inset 0 0 18px rgba(0, 229, 255, .25); transition: box-shadow .15s, background .15s;
+  box-shadow: inset 0 0 18px rgba(227, 32, 47, .25); transition: box-shadow .15s, background .15s;
 }
-.start:hover:not(:disabled) { background: rgba(0, 229, 255, .16); box-shadow: inset 0 0 28px rgba(0, 229, 255, .45), 0 0 18px rgba(0, 229, 255, .6); }
+.start:hover:not(:disabled) { background: rgba(227, 32, 47, .16); box-shadow: inset 0 0 28px rgba(227, 32, 47, .45), 0 0 18px rgba(227, 32, 47, .6); }
 .start:disabled { border-color: var(--metal-light); color: var(--wire); box-shadow: none; }
-.bar { background: linear-gradient(180deg, var(--surface), rgba(14, 19, 29, .6)); border-bottom: 1px solid var(--metal-dark); font-family: var(--font); letter-spacing: .03em; }
+.bar { background: linear-gradient(180deg, var(--surface), rgba(22, 19, 18, .6)); border-bottom: 1px solid var(--metal-dark); font-family: var(--font); letter-spacing: .03em; }
 .bar button, .pbar button, .ulist button, .pad button, .manage li button, .frow button.add {
   border-radius: 2px; border: 1px solid var(--metal-light); color: var(--wire); background: transparent; text-transform: uppercase; letter-spacing: .06em; font-weight: 600; transition: border-color .15s, color .15s, box-shadow .15s;
 }
@@ -475,10 +475,10 @@ body {
 .dot.wait { border-color: var(--orange); background: transparent; box-shadow: 0 0 10px var(--orange); }
 .dot.off { border-color: var(--red); background: transparent; box-shadow: 0 0 10px var(--red); }
 .sform input, .sform select, .ulist input, .add input, .manage li input { border-radius: 2px; border-color: var(--metal-light); background: var(--cabinet-deep); font-family: var(--font); }
-.sform input:focus, .sform select:focus, .ulist input:focus, .add input:focus, .manage li input:focus { border-color: var(--glow); box-shadow: 0 0 12px rgba(0, 229, 255, .35); outline: none; }
+.sform input:focus, .sform select:focus, .ulist input:focus, .add input:focus, .manage li input:focus { border-color: var(--glow); box-shadow: 0 0 12px rgba(227, 32, 47, .35); outline: none; }
 
 /* Visit darts: cyan reticle slots, orange when corrected by hand */
-.visit { background: linear-gradient(0deg, var(--surface), rgba(14, 19, 29, .7)); border-top: 1px solid var(--metal-dark); }
+.visit { background: linear-gradient(0deg, var(--surface), rgba(22, 19, 18, .7)); border-top: 1px solid var(--metal-dark); }
 .dart { border-radius: 2px; border: 2px dashed var(--metal-light); font-family: var(--font-hud); font-weight: 700; }
 .dart.hit { border-color: var(--glow); color: var(--glow); }
 .dart.edited { border-color: var(--orange); color: var(--orange); box-shadow: 0 0 14px rgba(255, 122, 0, .45), inset 0 0 14px rgba(255, 122, 0, .15); text-shadow: 0 0 10px rgba(255, 122, 0, .7); }
@@ -490,11 +490,11 @@ body {
 .pad .mult button[aria-pressed="true"] { border-color: var(--glow); color: var(--glow); }
 .rules summary { border-radius: 0; clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%); border-color: var(--metal-light); text-transform: uppercase; letter-spacing: .06em; }
 .rules summary:hover { border-color: var(--orange); }
-.banner { background: radial-gradient(60% 60% at 50% 45%, rgba(0, 229, 255, .12), rgba(7, 9, 14, .94)); }
+.banner { background: radial-gradient(60% 60% at 50% 45%, rgba(227, 32, 47, .12), rgba(12, 10, 9, .94)); }
 /* ---------- clearer sections: every block of the menu is its own framed panel ---------- */
 :root { --panel-border: #3d4e69; }
 .panel, .sgroup, .manage {
-  background: linear-gradient(180deg, rgba(26, 35, 50, .85), rgba(14, 19, 29, .92));
+  background: linear-gradient(180deg, rgba(40, 34, 32, .85), rgba(22, 19, 18, .92));
   border: 1px solid var(--panel-border); border-left: 3px solid var(--glow); border-radius: 4px;
   padding: 14px 18px 16px; box-shadow: 0 0 0 1px rgba(0, 0, 0, .6), 0 10px 26px rgba(0, 0, 0, .55);
   position: relative;
@@ -514,13 +514,292 @@ body {
 #game-opts { margin-top: 12px; padding-top: 6px; border-top: 1px dashed var(--panel-border); }
 .opt-group h3::before { content: ''; margin: 0; }
 .sgroup, .manage { max-width: 900px; }
-.manage { margin-top: 12px; border-left-color: var(--orange); background: rgba(7, 9, 14, .55); }
+.manage { margin-top: 12px; border-left-color: var(--orange); background: rgba(12, 10, 9, .55); }
 @media (max-width: 700px) {
   .panel, .sgroup, .manage { padding: 10px 12px 12px; }
   .panel > h2, .sgroup > h2 { margin-bottom: 8px; padding-bottom: 6px; font-size: 13px; }
   .split { gap: 8px 24px; }
 }
+/* ---------- last three turns, end screen ---------- */
+.history { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; padding: 8px 18px; border-top: 1px solid var(--panel-border); background: rgba(12, 10, 9, .6); font-family: var(--font); min-height: 44px; }
+.history:empty { display: none; }
+.history::before { content: 'Last turns'; font-family: var(--font-hud); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .14em; color: var(--wire); margin-right: 4px; }
+.turn { display: inline-flex; align-items: baseline; gap: 8px; padding: 4px 12px; border: 1px solid var(--c, var(--metal-light)); border-left-width: 4px; background: rgba(40, 34, 32, .7); font-size: 17px; opacity: .75; }
+.turn b { color: var(--c, var(--sisal)); font-weight: 700; text-transform: uppercase; letter-spacing: .05em; font-size: .9em; }
+.turn i { font-style: normal; letter-spacing: .04em; }
+.turn em { font-style: normal; font-weight: 700; color: var(--glow); }
+.turn.new { opacity: 1; box-shadow: 0 0 12px rgba(227, 32, 47, .25); }
+.phist { padding: 6px 4px; border: 0; background: none; justify-content: center; }
+.phist .turn { font-size: clamp(14px, calc(1.7vw / var(--z)), 22px); }
+.chip.danger:hover { border-color: var(--red); color: var(--red); }
+.player .tag.finish { color: var(--green); border-color: var(--green); box-shadow: 0 0 10px rgba(164, 255, 58, .35); }
+.dart.unsure { border-style: dashed; border-color: var(--orange); color: var(--orange); box-shadow: 0 0 14px rgba(255, 122, 0, .35); }
+.dart.unsure::after { content: ' ?'; font-size: .6em; vertical-align: super; }
+.evidence { margin: 0 0 12px; text-align: center; }
+.evidence img { max-width: 100%; max-height: calc(38vh / var(--z)); border: 1px solid var(--panel-border); cursor: pointer; display: block; margin: 0 auto; }
+.evidence .hint { margin: 4px 0 0; }
+.bar #btn-end:hover { border-color: var(--red); color: var(--red); box-shadow: 0 0 12px rgba(255, 90, 54, .4); }
+.endscreen { z-index: 9; }
+.endcard h2 { font-size: clamp(34px, calc(6vw / var(--z)), 72px); }
+/* the top bar of the game has many buttons: keep each on one line, wrap the bar if it must */
+.bar { flex-wrap: wrap; row-gap: 6px; }
+.bar button { white-space: nowrap; font-size: 14px; padding: 8px 11px; letter-spacing: .04em; }
+.bar #conn-text, .bar .grow { white-space: nowrap; }
+.bar .grow { overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.endcard { width: min(720px, 100%); }
+.endcard .kicker { margin: 0 0 6px; font-family: var(--font-hud); font-size: 14px; letter-spacing: .3em; text-transform: uppercase; color: var(--orange); }
+.endcard h2 { margin-bottom: 4px; }
+.endcard #end-sub { margin: 0 0 18px; }
+#end-table { display: grid; gap: 6px; margin: 0 0 16px; text-align: left; }
+.er { display: grid; grid-template-columns: 2em 1fr auto auto; align-items: center; gap: 12px; padding: 10px 16px; border: 1px solid var(--panel-border); border-left: 3px solid var(--metal-light); background: rgba(40, 34, 32, .8); font-size: 20px; }
+.er .pos { font-family: var(--font-hud); color: var(--wire); }
+.er .nm { font-family: var(--font-hud); text-transform: uppercase; letter-spacing: .06em; font-weight: 700; }
+.er .lg { color: var(--wire); font-size: .8em; }
+.er .bg { font-family: var(--font-hud); font-weight: 900; min-width: 2.5em; text-align: right; }
+.er.win { border-color: var(--glow); border-left-color: var(--orange); box-shadow: 0 0 22px rgba(227, 32, 47, .3), inset 0 0 20px rgba(227, 32, 47, .12); }
+.er.win .nm, .er.win .bg { color: var(--glow); text-shadow: var(--halo); }
+.endnote { margin: 0 0 18px !important; font-size: 16px !important; color: var(--green) !important; min-height: 1.3em; }
+@media (max-width: 700px) {
+  .history { padding: 6px 10px; gap: 4px 6px; min-height: 0; }
+  .turn { font-size: 13px; padding: 3px 8px; gap: 5px; }
+  .er { font-size: 16px; padding: 8px 10px; gap: 8px; }
+}
 @media (prefers-reduced-motion: reduce) { .chip, .start, .bar button { transition: none; } }
+
+/* ================= phones: thumb-first layout =================
+   Portrait phones (up to 700 px wide). The design rules: the one main action sits at the bottom where the thumb is,
+   every tap target is at least 44 px, nothing scrolls sideways except the games row, and text fields use 16 px so
+   iPhones do not zoom when they are tapped. */
+#btn-more { display: none; }
+.pad .grab { display: none; }
+@media (max-width: 700px) {
+  html, body { overscroll-behavior: none; }
+  button, .chip, input, select { touch-action: manipulation; }
+
+  /* ---- menu */
+  #setup { padding: 12px 14px calc(96px + env(safe-area-inset-bottom)); gap: 12px; }
+  #setup > *, #settings > * { flex-shrink: 0; }      /* the menu scrolls; its parts must not be squeezed */
+  #setup h1 { font-size: 26px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 2px 0; }
+  #setup h1::before { width: 1em; height: 1em; }
+  .panel, .sgroup, .manage { padding: 10px 12px 12px; }
+  .panel > h2, .sgroup > h2 { font-size: 12px; margin-bottom: 8px; padding-bottom: 6px; }
+  .chip { min-height: 44px; padding: 8px 14px; font-size: 15px; }
+  #roster .chip { min-width: 72px; justify-content: center; }
+  /* the sixteen games: one row that scrolls sideways, with a hint of the next chip at the edge */
+  #opt-game { flex-wrap: nowrap; overflow-x: auto; scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch;
+              margin: 0 -12px; padding: 2px 12px 8px; scrollbar-width: none;
+              mask-image: linear-gradient(90deg, transparent 0, #000 12px, #000 calc(100% - 24px), transparent 100%);
+              -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 12px, #000 calc(100% - 24px), transparent 100%); }
+  #opt-game::-webkit-scrollbar { display: none; }
+  #opt-game .chip { flex: none; scroll-snap-align: center; }
+  .split { gap: 10px 18px; }
+  #game-opts { gap: 0 14px; }
+  /* Start sticks to the bottom of the screen, full width, where the thumb is */
+  #start-row { position: fixed; left: 0; right: 0; bottom: 0; z-index: 3; margin: 0; border-radius: 0; border-left: 0;
+               padding: 10px 14px calc(10px + env(safe-area-inset-bottom)); gap: 6px 14px;
+               background: rgba(12, 10, 9, .94); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+               box-shadow: 0 -10px 30px rgba(0, 0, 0, .6); }
+  #start-row::before, #start-row::after { display: none; }
+  #start-row .start { flex: 1 1 100%; width: 100%; min-height: 52px; padding: 12px; font-size: 18px; text-align: center; }
+  #start-row .link { font-size: 12px; min-height: 32px; }
+  #open-passive { display: none; }            /* a TV page is opened on the TV, not from the phone */
+  .add input, .manage li input, .sform input, .sform select, .ulist input { font-size: 16px; }
+
+  /* ---- settings */
+  #settings { padding: 12px 14px calc(24px + env(safe-area-inset-bottom)); }
+  #settings h1 { font-size: 26px; }
+  .sform { flex-direction: column; align-items: stretch; }
+  .sform label { width: 100%; }
+  .sform input:not([type="checkbox"]), .sform select { width: 100% !important; min-height: 44px; }
+  .sform input[type="checkbox"] { width: 22px; height: 22px; }
+  .sform label.check { flex-direction: row; padding: 4px 0; }
+  .sform .chip, #engine-tools .chip { width: 100%; justify-content: center; }
+  #engine-tools { flex-direction: column; }
+
+  /* ---- game: a slim bar with Undo, Next and More */
+  .bar { flex-wrap: nowrap; gap: 6px; padding: 6px 8px; min-height: 52px; padding-top: calc(6px + env(safe-area-inset-top)); }
+  .bar .secondary { display: none !important; }
+  #btn-more { display: inline-flex; align-items: center; justify-content: center; }
+  .bar button { min-height: 40px; padding: 6px 10px; font-size: 13px; }
+  .bar #conn-text { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px; }
+  .bar #match-text { display: none; }
+  #btn-next { font-weight: 700; }
+  /* players stay compact; the board fills what is left instead of leaving a gap */
+  .arena { display: flex; flex-direction: column; min-height: 0; overflow-y: auto; }
+  .arena .players { flex: none; }
+  .boardview { flex: 1 1 auto; min-height: 150px; padding: 6px 12px; flex-direction: row; align-items: center; justify-content: center; gap: 12px; }
+  .boardview svg { height: 100%; max-height: min(44vh, 64vw); width: auto; aspect-ratio: 1; flex: none; }
+  .boardview .side { flex: 0 1 auto; }
+  .player { min-height: 64px; }
+  .player .score { font-size: 46px; }
+  .history { padding: 6px 10px; }
+  .visit { gap: 8px; padding: 8px 10px calc(8px + env(safe-area-inset-bottom)); }
+  .dart { min-height: 56px; font-size: 22px; }
+
+  /* ---- sheets (correct a dart, fix scores, more) come up from the bottom */
+  .pad .sheet { width: 100%; max-height: 88dvh; overflow-y: auto; padding: 6px 12px calc(12px + env(safe-area-inset-bottom));
+                border-radius: 16px 16px 0 0; }
+  .pad .grab { display: block; width: 44px; height: 5px; border-radius: 3px; background: var(--metal-light); margin: 4px auto 10px; }
+  .pad .mult { gap: 6px; margin-bottom: 8px; }
+  .pad .nums { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
+  .pad button { min-height: 48px; font-size: 18px; padding: 0 2px; letter-spacing: 0; min-width: 0; }
+  .pad .foot { gap: 8px; }
+  .pad .foot button { flex: 1; min-height: 48px; font-size: 14px; }
+  .evidence img { max-height: 30dvh; }
+  .more-list { display: grid; gap: 8px; }
+  .more-list button { min-height: 52px; font-size: 16px; text-align: left; padding: 0 16px; border: 1px solid var(--metal-light);
+                      border-radius: 4px; background: var(--surface); color: var(--sisal); text-transform: uppercase; letter-spacing: .05em; }
+  .more-list button.danger { color: var(--red); border-color: rgba(255, 90, 54, .5); }
+
+  /* ---- end screen and win banner fit a phone */
+  .endcard h2, .banner h2 { font-size: 34px; }
+  .er { grid-template-columns: 1.6em 1fr auto; font-size: 15px; padding: 8px 10px; }
+  .er .lg { display: none; }
+}
+/* phones on their side: the game screen keeps everything in one view */
+@media (max-height: 500px) and (orientation: landscape) {
+  .bar { min-height: 40px; padding: 4px 8px; }
+  .bar button { padding: 4px 9px; font-size: 12px; }
+  .bar .secondary { display: none !important; }
+  #btn-more { display: inline-flex; }
+  .player .score { font-size: clamp(34px, 12vh, 72px); }
+  .visit { padding: 6px 10px calc(6px + env(safe-area-inset-bottom)); }
+  .dart { min-height: 46px; }
+  #setup { padding-bottom: 24px; }
+}
+
+/* ================= ARCADE: an 80s game-console coat over the same layout =================
+   Press Start 2P for titles, scores and buttons, VT323 (a terminal font) where text has to be read, neon on black,
+   pixel-notched corners and a light CRT scanline. Same as the Pi's login screen. Colours of the Tikka woodpecker
+   ("tikka" is Finnish for a dart and a woodpecker): crest red for what matters now (start, the player at the board,
+   totals), plumage white for what is chosen, warm black and bark grey for the rest. */
+:root {
+  --font-hud: "Press Start 2P", "Orbitron", system-ui, monospace;
+  --font-crt: "VT323", "Chakra Petch", ui-monospace, monospace;
+  --cabinet-deep: #0c0a09; --surface: #161312; --elevated: #221d1b; --panel-border: #3e3633; --metal-light: #6e6460; --metal-dark: #2a2422;
+  --glow: #f4efe6; --orange: #ff8f3a; --red: #e3202f; --red-deep: #7a0d16; --green: #5fd35f; --yellow: #e3202f; --magenta: #e3202f;
+  --line: rgba(244, 239, 230, .14); --halo: 0 0 6px rgba(227, 32, 47, .7), 0 0 20px rgba(227, 32, 47, .35);
+  --buff: #e2c08d; --wire: #c9bfb4; --text: #f4efe6; --muted: #a39890;
+  --pix: polygon(0 3px, 3px 3px, 3px 0, calc(100% - 3px) 0, calc(100% - 3px) 3px, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 3px calc(100% - 3px), 0 calc(100% - 3px));
+  --pix-s: polygon(0 3px, 3px 3px, 3px 0, calc(100% - 3px) 0, calc(100% - 3px) 3px, 100% 3px, 100% calc(100% - 3px), calc(100% - 3px) calc(100% - 3px), calc(100% - 3px) 100%, 3px 100%, 3px calc(100% - 3px), 0 calc(100% - 3px));
+}
+body {
+  background:
+    linear-gradient(to right, rgba(244, 239, 230, .03) 1px, transparent 1px) 0 0 / 32px 32px,
+    linear-gradient(to bottom, rgba(244, 239, 230, .03) 1px, transparent 1px) 0 0 / 32px 32px,
+    radial-gradient(120% 70% at 50% -10%, #2a1312 0%, var(--cabinet-deep) 60%) fixed, var(--cabinet-deep);
+}
+body::after {                                    /* CRT: scanlines and a dark rim, never in the way of a tap */
+  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 60;
+  background: repeating-linear-gradient(to bottom, transparent 0 2px, rgba(0, 0, 0, .16) 2px 3px),
+              radial-gradient(130% 110% at 50% 50%, transparent 60%, rgba(0, 0, 0, .45) 100%);
+}
+::selection { background: var(--red); color: #fff; }
+
+/* titles: crest red, lit from above, with a hard pixel shadow */
+#setup h1, #settings h1, #fix h3, .banner h2 {
+  font-family: var(--font-hud); font-style: normal; font-weight: 400; letter-spacing: 0; text-transform: uppercase;
+  background: linear-gradient(180deg, #ff7a7a 0%, #ff3b3b 30%, #e3202f 60%, #b5121f 100%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;
+  filter: drop-shadow(3px 3px 0 #000) drop-shadow(1px 1px 0 var(--red-deep));
+}
+#setup h1 { font-size: clamp(22px, calc(3.2vw / var(--z)), 38px); line-height: 1.25; }
+#setup h1::before { display: none; }
+#settings h1 { font-size: 26px; }
+.banner h2 { font-size: clamp(26px, calc(5vw / var(--z)), 60px); line-height: 1.3; }
+.logo-tikka { height: clamp(34px, calc(4.4vw / var(--z)), 60px); aspect-ratio: 62 / 14; image-rendering: pixelated;
+             background: url("data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2062%2014%22%20shape-rendering=%22crispEdges%22%3E%3Crect%20x=%2238%22%20y=%220%22%20width=%223%22%20height=%221%22%20fill=%22%23ff0000%22/%3E%3Crect%20x=%2238%22%20y=%221%22%20width=%229%22%20height=%221%22%20fill=%22%23ff0000%22/%3E%3Crect%20x=%2239%22%20y=%222%22%20width=%2210%22%20height=%221%22%20fill=%22%23ff0000%22/%3E%3Crect%20x=%2240%22%20y=%223%22%20width=%229%22%20height=%221%22%20fill=%22%23ff0000%22/%3E%3Crect%20x=%2249%22%20y=%223%22%20width=%221%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%220%22%20y=%224%22%20width=%222%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2239%22%20y=%224%22%20width=%222%22%20height=%221%22%20fill=%22%23ff0000%22/%3E%3Crect%20x=%2241%22%20y=%224%22%20width=%2210%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%220%22%20y=%225%22%20width=%221%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%221%22%20y=%225%22%20width=%221%22%20height=%221%22%20fill=%22%23eeeeee%22/%3E%3Crect%20x=%222%22%20y=%225%22%20width=%222%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2238%22%20y=%225%22%20width=%221%22%20height=%221%22%20fill=%22%23ff0000%22/%3E%3Crect%20x=%2239%22%20y=%225%22%20width=%222%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2241%22%20y=%225%22%20width=%226%22%20height=%221%22%20fill=%22%23eeeeee%22/%3E%3Crect%20x=%2247%22%20y=%225%22%20width=%221%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2248%22%20y=%225%22%20width=%221%22%20height=%221%22%20fill=%22%23000000%22/%3E%3Crect%20x=%2249%22%20y=%225%22%20width=%221%22%20height=%221%22%20fill=%22%23eeeeee%22/%3E%3Crect%20x=%2250%22%20y=%225%22%20width=%222%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%220%22%20y=%226%22%20width=%221%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%221%22%20y=%226%22%20width=%222%22%20height=%221%22%20fill=%22%23eeeeee%22/%3E%3Crect%20x=%223%22%20y=%226%22%20width=%223%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2219%22%20y=%226%22%20width=%2216%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2238%22%20y=%226%22%20width=%222%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2240%22%20y=%226%22%20width=%227%22%20height=%221%22%20fill=%22%23eeeeee%22/%3E%3Crect%20x=%2247%22%20y=%226%22%20width=%221%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2248%22%20y=%226%22%20width=%222%22%20height=%221%22%20fill=%22%23000000%22/%3E%3Crect%20x=%2250%22%20y=%226%22%20width=%222%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2252%22%20y=%226%22%20width=%225%22%20height=%221%22%20fill=%22%23d0d0d0%22/%3E%3Crect%20x=%220%22%20y=%227%22%20width=%222%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%222%22%20y=%227%22%20width=%222%22%20height=%221%22%20fill=%22%23eeeeee%22/%3E%3Crect%20x=%224%22%20y=%227%22%20width=%224%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2215%22%20y=%227%22%20width=%225%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2220%22%20y=%227%22%20width=%222%22%20height=%221%22%20fill=%22%23eeeeee%22/%3E%3Crect%20x=%2222%22%20y=%227%22%20width=%223%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2225%22%20y=%227%22%20width=%221%22%20height=%221%22%20fill=%22%23eeeeee%22/%3E%3Crect%20x=%2226%22%20y=%227%22%20width=%224%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2230%22%20y=%227%22%20width=%221%22%20height=%221%22%20fill=%22%23eeeeee%22/%3E%3Crect%20x=%2231%22%20y=%227%22%20width=%224%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2235%22%20y=%227%22%20width=%221%22%20height=%221%22%20fill=%22%23eeeeee%22/%3E%3Crect%20x=%2236%22%20y=%227%22%20width=%2216%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2252%22%20y=%227%22%20width=%229%22%20height=%221%22%20fill=%22%23d0d0d0%22/%3E%3Crect%20x=%2261%22%20y=%227%22%20width=%221%22%20height=%221%22%20fill=%22%238a8a8a%22/%3E%3Crect%20x=%222%22%20y=%228%22%20width=%222%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%224%22%20y=%228%22%20width=%222%22%20height=%221%22%20fill=%22%23eeeeee%22/%3E%3Crect%20x=%226%22%20y=%228%22%20width=%2211%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2217%22%20y=%228%22%20width=%223%22%20height=%221%22%20fill=%22%23eeeeee%22/%3E%3Crect%20x=%2220%22%20y=%228%22%20width=%226%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2226%22%20y=%228%22%20width=%221%22%20height=%221%22%20fill=%22%23eeeeee%22/%3E%3Crect%20x=%2227%22%20y=%228%22%20width=%224%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2231%22%20y=%228%22%20width=%221%22%20height=%221%22%20fill=%22%23eeeeee%22/%3E%3Crect%20x=%2232%22%20y=%228%22%20width=%224%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2236%22%20y=%228%22%20width=%221%22%20height=%221%22%20fill=%22%23eeeeee%22/%3E%3Crect%20x=%2237%22%20y=%228%22%20width=%222%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2239%22%20y=%228%22%20width=%229%22%20height=%221%22%20fill=%22%23eeeeee%22/%3E%3Crect%20x=%2248%22%20y=%228%22%20width=%224%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2252%22%20y=%228%22%20width=%221%22%20height=%221%22%20fill=%22%238a8a8a%22/%3E%3Crect%20x=%222%22%20y=%229%22%20width=%222%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%224%22%20y=%229%22%20width=%222%22%20height=%221%22%20fill=%22%23eeeeee%22/%3E%3Crect%20x=%226%22%20y=%229%22%20width=%226%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2212%22%20y=%229%22%20width=%223%22%20height=%221%22%20fill=%22%23d70000%22/%3E%3Crect%20x=%2215%22%20y=%229%22%20width=%2224%22%20height=%221%22%20fill=%22%23bcbcbc%22/%3E%3Crect%20x=%2239%22%20y=%229%22%20width=%229%22%20height=%221%22%20fill=%22%23eeeeee%22/%3E%3Crect%20x=%2248%22%20y=%229%22%20width=%223%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%220%22%20y=%2210%22%20width=%222%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%222%22%20y=%2210%22%20width=%222%22%20height=%221%22%20fill=%22%23eeeeee%22/%3E%3Crect%20x=%224%22%20y=%2210%22%20width=%224%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2212%22%20y=%2210%22%20width=%223%22%20height=%221%22%20fill=%22%23d70000%22/%3E%3Crect%20x=%2215%22%20y=%2210%22%20width=%2225%22%20height=%221%22%20fill=%22%23bcbcbc%22/%3E%3Crect%20x=%2240%22%20y=%2210%22%20width=%227%22%20height=%221%22%20fill=%22%23eeeeee%22/%3E%3Crect%20x=%2247%22%20y=%2210%22%20width=%222%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%220%22%20y=%2211%22%20width=%221%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%221%22%20y=%2211%22%20width=%222%22%20height=%221%22%20fill=%22%23eeeeee%22/%3E%3Crect%20x=%223%22%20y=%2211%22%20width=%223%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2214%22%20y=%2211%22%20width=%222%22%20height=%221%22%20fill=%22%23d70000%22/%3E%3Crect%20x=%2216%22%20y=%2211%22%20width=%2225%22%20height=%221%22%20fill=%22%23bcbcbc%22/%3E%3Crect%20x=%2241%22%20y=%2211%22%20width=%224%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%220%22%20y=%2212%22%20width=%221%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%221%22%20y=%2212%22%20width=%221%22%20height=%221%22%20fill=%22%23eeeeee%22/%3E%3Crect%20x=%222%22%20y=%2212%22%20width=%222%22%20height=%221%22%20fill=%22%23444444%22/%3E%3Crect%20x=%2218%22%20y=%2212%22%20width=%2221%22%20height=%221%22%20fill=%22%23bcbcbc%22/%3E%3Crect%20x=%220%22%20y=%2213%22%20width=%222%22%20height=%221%22%20fill=%22%23444444%22/%3E%3C/svg%3E") left center / contain no-repeat; margin: -4px 0 2px; }
+
+/* panels: pixel corners, a bright edge, the heading as a console label */
+.panel, .sgroup, .manage { clip-path: var(--pix); border: 3px solid var(--panel-border); border-radius: 0; box-shadow: none;
+  background: linear-gradient(180deg, rgba(34, 29, 27, .94), rgba(16, 13, 12, .96)); }
+.panel::before, .panel::after, .sgroup::before, .sgroup::after, .manage::before, .manage::after { display: none; }
+.panel > h2, .sgroup > h2, .split h3, .opt-group h3, #setup h2 { font-family: var(--font-hud); font-size: 11px; letter-spacing: 1px; color: var(--glow); border-bottom-color: var(--panel-border); }
+.panel > h2::before, .sgroup > h2::before { content: '\25B6'; color: var(--magenta); margin-right: .7em; font-size: .9em; }
+#setup h2::before, .opt-group h3::before { content: ''; }
+
+/* readable text in the terminal font */
+.hint, .rule, .rules, .smsg, .sform label, .player .stats, .player .legs, .player .recent, .history, .pp .rec, .pp .sub, .pcap, .legend,
+.boardview .cap, .bar, #conn-text, .endcard p, .banner p, .frow .who, .manage li .count, .total span {
+  font-family: var(--font-crt); letter-spacing: .02em; }
+.hint { font-size: 19px; } .rule { font-size: 20px; } .rules { font-size: 19px; }
+.player .stats, .player .recent { font-size: clamp(18px, calc(2vw / var(--z)), 24px); }
+.player .legs { font-size: clamp(18px, calc(2vw / var(--z)), 24px); }
+.bar { font-size: 20px; } .total span { font-size: 18px; } .history { font-size: 19px; }
+
+/* chips and buttons: console buttons with pixel corners; the chosen one lights up */
+.chip { font-family: var(--font-hud); font-size: 11px; letter-spacing: 0; text-transform: uppercase; font-weight: 400;
+        clip-path: var(--pix-s); border-radius: 0; border: 3px solid var(--metal-light); background: var(--surface); line-height: 1.5; }
+.chip:hover { border-color: var(--magenta); color: var(--magenta); }
+.chip[aria-pressed="true"] { background: var(--glow); color: #120f0e; border-color: var(--glow); box-shadow: inset 0 -3px 0 #c9bfb4; text-shadow: none; }
+.chip[aria-pressed="true"]:hover { color: #000; }
+.chip .order { color: inherit; opacity: .8; }
+.chip.danger:hover { border-color: var(--red); color: var(--red); }
+.start { font-family: var(--font-hud); font-style: normal; font-weight: 400; font-size: 14px; letter-spacing: 1px; line-height: 1.5;
+         clip-path: var(--pix); border: 3px solid var(--red); background: var(--red); color: #fff; box-shadow: inset 0 -4px 0 var(--red-deep); text-shadow: 2px 2px 0 var(--red-deep); }
+.start:not(:disabled)::before { content: '\25B6\00a0'; animation: blink 1s steps(1) infinite; }
+.start:hover:not(:disabled) { background: #ff3443; border-color: #ff3443; color: #fff; }
+.start:disabled { border-color: #3e3633; color: #6e6460; background: var(--surface); box-shadow: none; text-shadow: none; }
+@keyframes blink { 50% { opacity: 0; } }
+.bar button, .pbar button, .ulist button, .pad button, .manage li button, .frow button, .more-list button, .rules summary, .link {
+  font-family: var(--font-crt); font-size: 19px; letter-spacing: .04em; clip-path: var(--pix-s); border-radius: 0; }
+.bar button { border-width: 2px; }
+.bar button:hover, .pbar button:hover, .ulist button:hover, .pad button:hover, .manage li button:hover:not(:disabled), .link:hover {
+  border-color: var(--magenta); color: var(--magenta); box-shadow: none; }
+.bar button#btn-next { border-color: var(--red); background: var(--red); color: #fff; }
+.sform input, .sform select, .ulist input, .add input, .manage li input, #api { font-family: var(--font-crt); font-size: 20px; border: 2px solid var(--metal-light); border-radius: 0; }
+
+/* the game: names and scores in the console font, the player at the board in a blinking cursor box */
+.player .name, .pp .nm { font-family: var(--font-hud); font-size: clamp(14px, calc(1.8vw / var(--z)), 24px); letter-spacing: 1px; font-weight: 400; }
+.player .score, .pp .big, .total b { font-family: var(--font-hud); font-weight: 400; letter-spacing: 0; }
+@media (min-width: 701px) { .player .score { font-size: clamp(40px, 22cqi, 150px); } }
+.player .score { text-shadow: 4px 4px 0 rgba(0, 0, 0, .6); }
+.player.active { background: linear-gradient(180deg, rgba(227, 32, 47, .16), rgba(227, 32, 47, .03)); box-shadow: inset 0 0 0 3px var(--red); }
+.player.active .name::before { content: '\25B6\00a0'; color: var(--red); animation: blink 1s steps(1) infinite; }
+.player.active .score { color: var(--glow); text-shadow: 4px 4px 0 var(--red-deep), 0 0 18px rgba(227, 32, 47, .45); }
+.player.active.bust .score { color: var(--orange); text-shadow: 4px 4px 0 #4a1a00; }
+.player .route { font-family: var(--font-crt); font-size: clamp(20px, calc(2.6vw / var(--z)), 32px); color: var(--green); text-shadow: 0 0 8px rgba(95, 211, 95, .45); }
+.player::before, .player::after { display: none; }
+.dart { font-family: var(--font-hud); font-size: clamp(16px, calc(2.6vw / var(--z)), 30px); clip-path: var(--pix); border: 3px dashed var(--metal-light); border-radius: 0; }
+.dart.hit { border-style: solid; border-color: var(--glow); color: var(--glow); }
+.dart.edited { border-color: var(--buff); color: var(--buff); }
+.dart.unsure { border-color: var(--orange); color: var(--orange); }
+.total b { color: var(--red); text-shadow: 4px 4px 0 #000; }
+.turn { clip-path: var(--pix-s); border-radius: 0; font-family: var(--font-crt); font-size: 19px; }
+.turn b { font-family: var(--font-crt); }
+.player .tag, .ulist .badge { font-family: var(--font-hud); font-size: 9px; clip-path: var(--pix-s); }
+.player .tag.finish { color: #000; background: var(--green); border-color: var(--green); }
+.marks .t, .marks .m { font-family: var(--font-crt); font-size: 1.15em; }
+.boardview, .pboard { border-color: var(--panel-border); }
+.boardview svg, .pboard svg { filter: drop-shadow(0 0 10px rgba(227, 32, 47, .25)); }
+
+/* sheets, banners, the end screen */
+.pad .sheet { border-top: 3px solid var(--red); clip-path: none; }
+.pad .mult button[aria-pressed="true"] { background: var(--glow); color: #120f0e; border-color: var(--glow); }
+.pad .nums button { font-family: var(--font-hud); font-size: 13px; }
+.endcard .kicker { font-family: var(--font-hud); font-size: 12px; color: var(--magenta); letter-spacing: 2px; animation: blink 1.2s steps(1) infinite; }
+.er { clip-path: var(--pix-s); border-radius: 0; font-family: var(--font-crt); font-size: 22px; }
+.er .nm, .er .bg, .er .pos { font-family: var(--font-hud); font-size: 13px; }
+.er.win { border-color: var(--red); box-shadow: inset 0 0 0 2px var(--red); }
+.er.win .nm, .er.win .bg { color: var(--glow); text-shadow: 3px 3px 0 var(--red-deep); }
+
+@media (max-width: 700px) {
+  #setup h1 { font-size: 18px; }
+  .logo-tikka { height: 32px; }
+  .chip { font-size: 10px; min-height: 44px; }
+  #start-row .start { font-size: 12px; }
+  .player .name { font-size: 13px; }
+  .player .score { font-size: 30px; }
+  .player .stats, .player .recent, .player .legs { font-size: 17px; }
+  .dart { font-size: 15px; }
+  .total b { font-size: 22px; }
+  .bar button { font-size: 18px; padding: 4px 9px; }
+  .hint, .rule { font-size: 17px; }
+  .er .nm, .er .bg, .er .pos { font-size: 11px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .start:not(:disabled)::before, .player.active .name::before, .endcard .kicker { animation: none; }
+}
 </style>
 <script>
 // Scale the whole page with the screen: the layout is designed for 1200x900 and zoomed to fill larger or
@@ -542,7 +821,8 @@ body {
 
 <!-- Setup -->
 <section id="setup" class="screen on" aria-labelledby="setup-title">
-  <h1 id="setup-title">Darts Scoreboard</h1>
+  <h1 id="setup-title">Tikka</h1>
+  <div class="logo-tikka" role="img" aria-label="The Tikka woodpecker: a dart with a woodpecker's head"></div>
   <p class="hint who" id="who-line" hidden><span id="who"></span> <button class="link" id="btn-logout">Sign out</button></p>
 
   <div class="panel">
@@ -590,7 +870,7 @@ body {
     </div>
   </div>
 
-  <div class="panel actions row" style="align-items:center; gap:24px">
+  <div class="panel actions row" id="start-row" style="align-items:center; gap:24px">
     <button class="start" id="start" disabled>Start game</button>
     <button class="link" id="resume" hidden>Resume last game</button>
     <button class="link" id="open-passive">Open passive display (for a TV: shows the game running on another device)</button>
@@ -601,10 +881,13 @@ body {
     <div class="row">
       <button class="chip" id="opt-voice" aria-pressed="true">Score caller on</button>
       <button class="chip" id="opt-voice-test">Test voice</button>
+      <button class="chip" id="opt-dartcalls" aria-pressed="false">Call each dart: off</button>
+      <button class="chip" id="opt-finishcalls" aria-pressed="false">Call the finish: off</button>
       <button class="chip" id="opt-tips" aria-pressed="true">Throw tips on</button>
       <button class="chip" id="opt-awake" aria-pressed="true">Keep screen on</button>
       <button class="chip" id="opt-lights" hidden>Lights: auto</button>
       <button class="chip" id="btn-settings">Settings: board, users, lights, game lock</button>
+      <button class="chip danger" id="end-session">End session: lights off</button>
     </div>
 
   </div>
@@ -621,8 +904,13 @@ body {
       <label>Address <input id="api" autocomplete="off" inputmode="url" style="width:22em"></label>
       <button class="chip" type="submit">Save</button>
     </form>
-    <p class="hint">Address of the Autodarts board service, usually the Pi's address with port 3180.
-      Saved on this device only.</p>
+    <p class="hint">Address of the board service. Leave it at the Pi's own address and the page follows the
+      board program that is switched on (below). Saved on this device only.</p>
+    <p class="hint" id="engine-note"></p>
+    <div class="row" id="engine-tools" hidden>
+      <button class="chip" id="cal-auto" type="button">Calibrate cameras (empty, lit board)</button>
+      <button class="chip" id="cal-orient" type="button">Set orientation: I threw a dart at the 20</button>
+    </div>
   </div>
 
   <div class="sgroup" data-admin>
@@ -678,13 +966,15 @@ body {
     <span class="dot" id="conn-dot" aria-hidden="true"></span>
     <span id="conn-text">Connecting to board</span>
     <span class="grow" id="match-text"></span>
-    <button id="btn-reset" class="reset">Reset board</button>
-    <button id="btn-lights" hidden>Lights: auto</button>
-    <button id="btn-passive">Passive view</button>
-    <button id="btn-fix">Fix scores</button>
+    <button id="btn-reset" class="reset secondary">Reset board</button>
+    <button id="btn-lights" class="secondary" hidden>Lights: auto</button>
+    <button id="btn-passive" class="secondary">Passive view</button>
+    <button id="btn-fix" class="secondary">Fix scores</button>
     <button id="btn-undo">Undo visit</button>
     <button id="btn-next">Next player</button>
-    <button id="btn-menu">End game</button>
+    <button id="btn-menu" class="secondary">End game</button>
+    <button id="btn-end" class="secondary">End session</button>
+    <button id="btn-more" aria-haspopup="dialog" aria-controls="more">More</button>
   </div>
   <div class="arena">
     <div class="players" id="players"></div>
@@ -696,6 +986,7 @@ body {
       </div>
     </aside>
   </div>
+  <div class="history" id="history" aria-label="Last three turns"></div>
   <div class="visit">
     <button class="dart" data-i="0" aria-label="Dart 1, tap to correct">–</button>
     <button class="dart" data-i="1" aria-label="Dart 2, tap to correct">–</button>
@@ -712,6 +1003,7 @@ body {
       <svg id="p-board" viewBox="-1.12 -1.12 2.24 2.24" role="img" aria-label="Dartboard with this round's hits"></svg>
       <div class="pcap" id="p-cap"></div>
       <div class="phits" id="p-hits"></div>
+      <div class="history" id="p-hist" aria-label="Last three turns"></div>
     </div>
     <div class="pplayers" id="p-players"></div>
   </div>
@@ -725,8 +1017,24 @@ body {
   </div>
 </div>
 
+<div class="banner endscreen" id="end" role="dialog" aria-modal="true" aria-labelledby="end-title">
+  <div class="endcard">
+    <p class="kicker">Session ended</p>
+    <h2 id="end-title"></h2>
+    <p id="end-sub"></p>
+    <div id="end-table"></div>
+    <p class="endnote" id="end-note"></p>
+    <div class="row"><button class="chip" id="end-menu">Back to menu</button></div>
+  </div>
+</div>
+
 <div class="pad" id="pad" role="dialog" aria-modal="true" aria-label="Correct dart">
   <div class="sheet">
+    <div class="grab" aria-hidden="true"></div>
+    <div class="evidence" id="pad-evidence" hidden>
+      <img id="pad-img" alt="Camera picture of this dart with the detected tip marked">
+      <p class="hint" id="pad-img-cap"></p>
+    </div>
     <div class="mult" id="pad-mult"></div>
     <div class="nums" id="pad-nums"></div>
     <div class="foot">
@@ -738,10 +1046,20 @@ body {
 
 <div class="pad" id="fix" role="dialog" aria-modal="true" aria-label="Fix scores">
   <div class="sheet">
+    <div class="grab" aria-hidden="true"></div>
     <h3>Fix scores</h3>
     <p>Tap a dart to change it. Everything after it is recalculated.</p>
     <div id="fix-list"></div>
     <div class="foot"><button id="fix-close" style="padding:0 18px">Close</button></div>
+  </div>
+</div>
+
+<!-- Phones: the game bar keeps Undo and Next; the rest is here -->
+<div class="pad" id="more" role="dialog" aria-modal="true" aria-label="More actions">
+  <div class="sheet">
+    <div class="grab" aria-hidden="true"></div>
+    <div class="more-list" id="more-list"></div>
+    <div class="foot"><button id="more-close">Close</button></div>
   </div>
 </div>
 
@@ -755,6 +1073,7 @@ if (!/\/$|\.html$/.test(location.pathname)) location.replace(location.pathname +
 const store = {
   get(k, d) { try { const v = localStorage.getItem('hdarts.' + k); return v == null ? d : JSON.parse(v); } catch { return d; } },
   set(k, v) { try { localStorage.setItem('hdarts.' + k, JSON.stringify(v)); } catch {} },
+  del(k) { try { localStorage.removeItem('hdarts.' + k); } catch {} },
 };
 const $ = (id) => document.getElementById(id);
 const clone = (o) => JSON.parse(JSON.stringify(o));
@@ -771,6 +1090,9 @@ function fromApi(t) {
   if (!s || t.bouncer) return seg(0, 0);
   const d = seg(Number(s.number) || 0, Number(s.multiplier) || 0);
   if (t.coords && isFinite(t.coords.x) && isFinite(t.coords.y)) { d.x = t.coords.x; d.y = t.coords.y; }
+  // Tikka Vision extras: the cameras disagreed about this dart, and which pictures show it.
+  if (t.uncertain) d.unsure = true;
+  if (t.id) { d.id = t.id; d.cams = Array.isArray(t.cameras) ? t.cameras.slice(0, 4) : []; }
   return d;
 }
 // Board geometry, in units of the outer double radius (170 mm), y pointing up.
@@ -894,6 +1216,18 @@ function killerTip(s, i) {
 const GAMES = {};
 
 // ---------- X01 ----------
+// ================= can this turn win? (the "Call the finish" option) =================
+// A game may define finish(state, i, ctx) -> { say, show } | null: what player i needs to win with the darts left
+// this turn (ctx.dartsLeft). Only games where one turn can end the leg have it.
+const ONE_DART = new Set([0, 25, 50, ...Array.from({ length: 20 }, (_, k) => [k + 1, 2 * (k + 1), 3 * (k + 1)]).flat()]);
+const REACH = [new Set([0])];                      // REACH[n]: totals n darts can make (a miss counts 0)
+for (let n = 1; n <= 3; n++) {
+  const s = new Set();
+  for (const a of REACH[n - 1]) for (const b of ONE_DART) s.add(a + b);
+  REACH.push(s);
+}
+const sayTarget = (t) => (t === 25 ? 'bull' : String(t));
+
 GAMES.x01 = {
   name: 'X01',
   rule: 'Count down to exactly zero. With double out the last dart must be a double.',
@@ -943,6 +1277,15 @@ GAMES.x01 = {
       hint: ctx.bust ? 'Bust' : !p.open ? 'Needs a double to start' + tip : route ? route.map((d) => d.name).join(' ') : tip,
       stats: `Avg ${p.darts ? (p.pts / p.darts * 3).toFixed(1) : '–'} · Darts ${p.legDarts}${p.maxes ? ' · 180s ' + p.maxes : ''}`,
     };
+  },
+  finish(s, i, ctx) {
+    const p = s.p[i], dl = ctx.dartsLeft;
+    if (!p.open || dl < 1 || p.rem < 2 && s.o.out === 'double') return null;
+    if (s.o.out === 'double') {
+      const route = checkout(p.rem, dl);
+      return route ? { say: `you require ${p.rem}`, show: route.map((d) => d.name).join(' ') } : null;
+    }
+    return REACH[dl].has(p.rem) ? { say: `you require ${p.rem}`, show: `${p.rem} to finish` } : null;
   },
 };
 
@@ -998,6 +1341,18 @@ function cricketGame({ name, nums, rule, titles }) {
         stats: `Marks per round ${p.rounds ? (p.totalMarks / p.rounds).toFixed(2) : '–'}`,
       };
     },
+    finish(s, i, ctx) {
+      const me = s.p[i], list = s.nums || CRICKET, mode = s.o.mode;
+      const others = s.p.filter((p, j) => j !== i).map((p) => p.pts);
+      // Closing the last numbers wins only when the points already allow it (they cannot be counted on to change).
+      if (mode !== 'none' && others.length && !(mode === 'standard' ? me.pts >= Math.max(...others) : me.pts <= Math.min(...others))) return null;
+      const open = list.filter((t) => me.marks[t] < 3);
+      if (!open.length) return null;
+      const darts = open.reduce((a, t) => a + Math.ceil((3 - me.marks[t]) / (t === 25 ? 2 : 3)), 0);
+      if (darts > ctx.dartsLeft) return null;
+      const names = open.map(sayTarget);
+      return { say: `to win: ${names.join(' and ')}`, show: `To win: ${names.join(', ')}` };
+    },
   };
 }
 GAMES.cricket = cricketGame({
@@ -1029,6 +1384,13 @@ GAMES.clock = {
   ],
   title: (o) => 'Around the Clock' + (o.hit === 'any' ? '' : o.hit === 'double' ? ', doubles' : ', trebles'),
   create(o, n) { return { o, p: Array.from({ length: n }, () => ({ k: 0, darts: 0 })) }; },
+  finish(s, i, ctx) {
+    const p = s.p[i], left = CLOCK.slice(p.k);                       // the numbers still to hit, the bull last
+    // With "skip ahead" one treble moves three numbers; the bull always takes its own dart.
+    const darts = s.o.skip && s.o.hit !== 'double' ? Math.ceil((left.length - 1) / 3) + 1 : left.length;
+    if (!left.length || darts > ctx.dartsLeft) return null;
+    return { say: `to win: ${left.map(sayTarget).join(', ')}`, show: `To win: ${left.map(sayTarget).join(' ')}` };
+  },
   play(s, i, darts) {
     const p = s.p[i], o = s.o;
     let adv = 0, used = 0;
@@ -1208,6 +1570,13 @@ GAMES.killer = {
     return { s, scored: 0, call: call || 'No score' };
   },
   isOut: (s, i) => s.p[i].lives <= 0,
+  finish(s, i, ctx) {
+    const me = s.p[i];
+    const foes = s.p.filter((p, j) => j !== i && p.lives > 0);
+    if (!me.killer || foes.length !== 1 || foes[0].lives > ctx.dartsLeft) return null;
+    const f = foes[0], dbl = s.o.zone === 'double' ? 'D' : '';
+    return { say: `to win: ${f.lives === 1 ? '' : f.lives + ' times '}${dbl ? 'double ' : ''}${f.num}`, show: `To win: ${dbl}${f.num}${f.lives > 1 ? ' x' + f.lives : ''}` };
+  },
   view(s, i, ctx) {
     const p = s.p[i];
     const tip = ctx && ctx.active && tipsOn() ? killerTip(s, i) : '';
@@ -1277,6 +1646,12 @@ GAMES.fives = {
   rule: 'Add up the three darts. If the total is a multiple of 5, you score the total divided by 5. Otherwise nothing. First to the target wins.',
   options: [{ key: 'target', label: 'First to', choices: [['50 points', 50], ['100 points', 100], ['150 points', 150]], def: 100 }],
   title: (o) => `Fives, first to ${o.target}`,
+  finish(s, i, ctx) {
+    const need = s.o.target - s.p[i].pts;
+    // A full visit can be worth up to 36 (three treble 20s); only the start of a visit is judged.
+    if (ctx.dartsLeft < 3 || need < 1 || need > 36) return null;
+    return { say: `needs ${need}`, show: `${need} to win` };
+  },
   create(o, n) { return { o, p: Array.from({ length: n }, () => ({ pts: 0, visits: 0 })) }; },
   play(s, i, darts, ctx) {
     const p = s.p[i], done = ctx.final || darts.length >= 3;
@@ -1517,11 +1892,12 @@ let G = null;
 let api = { darts: [], status: '', lastSeen: 0, raw: null };
 let ignoreUntilClear = false;
 let saidForVisit = false;
+let dartsCalled = 0;                    // darts of this visit already called out ("Call each dart")
 let quiet = false, pendingWin = null;   // set while Fix scores replays visits
 const mod = () => GAMES[G.cfg.game];
 const setsLabel = (n) => (G && (G.cfg.setsToWin || 1) > 1 ? `Sets ${n || 0} · ` : '');
 const matchGoal = (legsTo, setsTo) => ((setsTo || 1) > 1 ? `first to ${setsTo} sets of ${legsTo}` : `first to ${legsTo}`);
-const emptyVisit = () => ({ overrides: {}, extra: [], seen: [] });
+const emptyVisit = () => { dartsCalled = 0; return { overrides: {}, extra: [], seen: [] }; };
 
 function newGame(cfg) {
   const g = { v: 2, hits: [], lastHits: [], cfg, legs: cfg.players.map(() => 0), sets: cfg.players.map(() => 0), cur: 0, legStarter: 0, leg: 1, round: 1, visit: emptyVisit(), history: [], over: false, winner: null };
@@ -1543,6 +1919,13 @@ function visitDarts() {
 function recentScores(i, n) {
   return G.history.filter((e) => e.fixScore != null && e.cur === i && e.leg === G.leg).slice(-n).map((e) => e.fixScore);
 }
+// The darts of the last three committed turns of this leg, shown while the next player throws.
+function lastTurns() {
+  return G.history.filter((e) => e.fixDarts && e.leg === G.leg).slice(-3)
+    .map((e) => ({ p: e.cur, name: G.cfg.players[e.cur] || '', darts: e.fixDarts.map((d) => d.name), score: e.fixScore, bust: !!e.fixBust }));
+}
+const turnsHtml = (list) => (list || []).map((t, k) =>
+  `<span class="turn${k === list.length - 1 ? ' new' : ''}" style="--c:${PCOL[t.p % PCOL.length]}"><b>${esc(t.name)}</b><i>${t.darts.length ? t.darts.map(esc).join(' ') : '–'}</i><em>${t.bust ? 'Bust' : esc(t.score)}</em></span>`).join('');
 function preview(final) {
   const darts = visitDarts();
   const r = mod().play(clone(G.s), G.cur, darts, { round: G.round, final });
@@ -1556,6 +1939,7 @@ function commitVisit() {
   const snap = snapshot();
   snap.fixDarts = clone(r.darts);   // what this visit scored, for Fix scores
   snap.fixScore = r.bust ? 0 : (r.scored || 0);
+  snap.fixBust = !!r.bust;
   G.history.push(snap);
   if (G.history.length > 300) G.history.shift();
   G.s = r.s;
@@ -1588,6 +1972,7 @@ function commitVisit() {
   if (isOut(next) && mod().roundEnd) { const w = mod().roundEnd(G.s, Infinity); return legWon(w); }
   G.cur = next;
   save(); render();
+  announceFinish();
 }
 
 function legWon(w) {
@@ -1616,6 +2001,7 @@ function legWon(w) {
   G.s = mod().create(G.cfg.opts, G.cfg.players.length, G.s);
   G.visit = emptyVisit();
   save(); render();
+  announceFinish();
 }
 
 function undo() {
@@ -1631,10 +2017,18 @@ function undo() {
 }
 
 // ================= board polling =================
-function apiBase() { return store.get('api', `http://${location.hostname || 'localhost'}:3180`); }
+let engine = { name: 'autodarts', port: 3180 };   // which program reads the cameras, told by the Pi (cgi-bin/lock)
+function apiBase() { return store.get('api', `http://${location.hostname || 'localhost'}:${engine.port}`); }
+// A board address saved earlier that is just this Pi with a board program's port pins the page to that program:
+// forget it, so the page follows whichever one (Autodarts 3180, Tikka Vision 3181) the Pi has switched on.
+try {
+  const pinned = store.get('api', null);
+  if (pinned && new RegExp('^http://' + (location.hostname || '').replace(/[.]/g, '\\.') + ':318[01]/?$').test(pinned)) store.del('api');
+} catch {}
 // On an HTTPS page (the internet link) browsers block plain-http requests, so the board is read
 // through the Pi (cgi-bin/board), which also checks the game lock before a reset.
-const viaPi = () => location.protocol === 'https:';
+// Tikka Vision listens only inside the Pi, so its board is always reached through the Pi's signed-in CGI.
+const viaPi = () => location.protocol === 'https:' || engine.name === 'tikka-vision';
 async function poll() {
   try {
     const res = await fetch(viaPi() ? 'cgi-bin/board' : apiBase() + '/api/state', { cache: 'no-store' });
@@ -1648,7 +2042,7 @@ async function poll() {
     if (darts.length === 0 && ignoreUntilClear) ignoreUntilClear = false;
     // Only the game on screen takes darts, and only for the user holding the board.
     const playing = $('game').classList.contains('on') || passiveMode === 'local';
-    const mine = G && !G.over && !lockedByOther() && playing;
+    const mine = G && !G.over && !lockedByOther() && playing && !ended;
     if (mine && s.running === false && /stopped/i.test(api.status) && Date.now() - lastStartTry > 10000) startBoard();
     if (mine && !ignoreUntilClear && darts.length) G.visit.seen = darts.slice(0, 3);
     if (mine) onBoard(changed);
@@ -1663,12 +2057,47 @@ function onBoard(changed) {
   if (r.won) { commitVisit(); return; }
   // The visit ends when the darts are pulled: the board clears its throws after takeout.
   if (!ignoreUntilClear && api.darts.length === 0 && (G.visit.seen || []).length) { commitVisit(); return; }
+  // Each dart as it lands ("Treble 20"), when that option is on. The visit's own call follows in the same
+  // sentence, since starting a new one would cut the dart's call off.
+  const said = [];
+  const detected = detectedDarts();
+  if (dartCallsOn() && detected.length > dartsCalled) {
+    for (let k = dartsCalled; k < detected.length && k < 3; k++) said.push(dartWords(detected[k]));
+    // ... and, between darts, what is still needed to win now ("You require 32").
+    if (finishCallsOn() && detected.length < 3 && !r.stop) {
+      const f = finishNow();
+      if (f) said.push(f.say.charAt(0).toUpperCase() + f.say.slice(1));
+    }
+  }
+  dartsCalled = Math.max(dartsCalled, detected.length);
   if ((r.stop || r.darts.length === 3) && !saidForVisit) {
     const fin = preview(true);
-    if (fin.call) speak(fin.call);
+    if (fin.call) said.push(fin.call);
     saidForVisit = true;
   }
+  if (said.length) speak(said.join('. '));
   if (changed) render();
+}
+// Per device, like the score caller: menu "Call each dart".
+const dartCallsOn = () => store.get('dartCalls', false);
+const finishCallsOn = () => store.get('finishCalls', false);
+// What the player at the board needs to win this turn, given the darts already thrown in it; null if it cannot be won.
+function finishNow() {
+  if (!G || G.over || !mod().finish) return null;
+  const r = preview(false);
+  if (r.bust || r.stop) return null;
+  try { return mod().finish(r.s, G.cur, { dartsLeft: 3 - r.darts.length }) || null; } catch { return null; }
+}
+// At the start of each turn: "Peetu, you require 40".
+function announceFinish() {
+  if (!finishCallsOn() || quiet) return;
+  const f = finishNow();
+  if (f) setTimeout(() => speak(`${G.cfg.players[G.cur]}, ${f.say}`), 900);   // after the visit's own call has ended
+}
+function dartWords(d) {
+  if (!d || !d.m || !d.n) return 'Miss';
+  if (d.n === 25) return d.m === 2 ? 'Bull' : 'Twenty five';
+  return (d.m === 3 ? 'Treble ' : d.m === 2 ? 'Double ' : '') + d.n;
 }
 
 // ================= caller =================
@@ -1712,6 +2141,7 @@ function render() {
   const darts = r.darts;
   const wrap = $('players');
   wrap.innerHTML = '';
+  const fin = finishCallsOn() ? finishNow() : null;     // shown on the card of the player at the board
   G.cfg.players.forEach((name, i) => {
     const active = i === G.cur && !G.over;
     const v = mod().view(shown, i, { active, dartsLeft: 3 - darts.length, bust: active && r.bust, round: G.round });
@@ -1719,7 +2149,7 @@ function render() {
     el.className = 'player' + (active ? ' active' : '') + (active && r.bust ? ' bust' : '') + (isOut(i) && !active ? ' out' : '');
     el.innerHTML = `
       <div class="name">${esc(name)}</div>
-      <div class="legs">${setsLabel(G.sets && G.sets[i])}Legs ${G.legs[i]}${v.tag ? ` <span class="tag">${esc(v.tag)}</span>` : ''}</div>
+      <div class="legs">${setsLabel(G.sets && G.sets[i])}Legs ${G.legs[i]}${v.tag ? ` <span class="tag">${esc(v.tag)}</span>` : ''}${fin && active ? ` <span class="tag finish" title="${esc(fin.show || '')}">Can win</span>` : ''}</div>
       <div class="score">${esc(v.big)}</div>
       <div class="route">${esc(v.hint || '')}</div>
       ${v.extra || ''}
@@ -1734,6 +2164,9 @@ function render() {
     b.textContent = d ? d.name : '–';
     b.classList.toggle('hit', !!d);
     b.classList.toggle('edited', !!d && (G.visit.overrides[i] != null || i >= detected));
+    const unsure = !!d && !!d.unsure && G.visit.overrides[i] == null && i < detected;
+    b.classList.toggle('unsure', unsure);
+    b.title = unsure ? 'The cameras disagreed about this dart. Tap to check the picture and correct it.' : '';
   });
   $('visit-total').textContent = r.bust ? 0 : (r.scored || 0);
   $('visit-note').textContent = r.bust ? 'bust, pull the darts' : darts.length === 3 || r.stop ? 'pull the darts' : 'this visit';
@@ -1741,6 +2174,7 @@ function render() {
   $('match-text').textContent = `${mod().title(G.cfg.opts)} · leg ${G.leg} · ${rounds ? `round ${G.round}/${rounds} · ` : ''}${matchGoal(G.cfg.legsToWin, G.cfg.setsToWin)}`;
   $('btn-undo').disabled = !G.history.length;
   $('btn-fix').disabled = !G.history.some((e) => e.fixDarts);
+  $('history').innerHTML = turnsHtml(lastTurns());
   renderBoard(darts);
   if (passiveMode === 'local') paintPassive(buildPayload());
   publish();
@@ -1775,7 +2209,7 @@ function dotsFor(sets, showLast) {
       if (!pos) return;
       const col = PCOL[v.p % PCOL.length];
       const r = v.live ? 0.05 : 0.038;
-      dots += `<circle cx="${pos.x.toFixed(4)}" cy="${(-pos.y).toFixed(4)}" r="${r}" fill="${col}" stroke="#04060d" stroke-width="0.012" filter="url(#glow)" opacity="${showLast ? 0.5 : 1}"/>`;
+      dots += `<circle cx="${pos.x.toFixed(4)}" cy="${(-pos.y).toFixed(4)}" r="${r}" fill="${col}" stroke="#0c0a09" stroke-width="0.012" filter="url(#glow)" opacity="${showLast ? 0.5 : 1}"/>`;
       if (v.live) dots += `<circle cx="${pos.x.toFixed(4)}" cy="${(-pos.y).toFixed(4)}" r="0.08" fill="none" stroke="${col}" stroke-width="0.012"/>`;
     });
   });
@@ -1802,6 +2236,68 @@ function renderConn() {
   txt.textContent = /throw/i.test(s) ? 'Ready to throw' : /takeout/i.test(s) ? 'Pulling darts' : s || 'Connected';
 }
 
+// ================= end session =================
+// Ends the evening: the lights go off right away, the board stops, the board is handed back and an
+// end screen shows how the game stood. A game that was not finished stays resumable from the menu.
+let ended = false;   // set while the session is over, so the poll does not restart the board
+async function stopBoard() {
+  try {
+    if (viaPi()) await fetch('cgi-bin/board', { method: 'POST', body: 'stop' });
+    else await fetch(apiBase() + '/api/stop', { method: 'PUT' });
+  } catch {}
+}
+function showEnd() {
+  let title = 'Session ended', sub = 'See you next time', rows = '';
+  if (G) {
+    const setsTo = G.cfg.setsToWin || 1, names = G.cfg.players, sets = G.sets || [];
+    const order = names.map((n, i) => i).sort((a, b) => (sets[b] || 0) - (sets[a] || 0) || G.legs[b] - G.legs[a] || a - b);
+    const big = (i) => { try { return mod().view(G.s, i, { active: false, dartsLeft: 3, bust: false, round: G.round }).big; } catch { return ''; } };
+    title = G.over && G.winner != null ? `${names[G.winner]} wins` : 'Game stopped';
+    sub = `${mod().title(G.cfg.opts)} · ${G.over ? 'final result' : `leg ${G.leg}, not finished`}`;
+    rows = order.map((i, k) => `<div class="er${G.over && i === G.winner ? ' win' : ''}"><span class="pos">${k + 1}</span><span class="nm">${esc(names[i])}</span><span class="lg">${setsTo > 1 ? `Sets ${sets[i] || 0} · ` : ''}Legs ${G.legs[i]}</span><span class="bg">${esc(big(i))}</span></div>`).join('');
+  }
+  $('end-title').textContent = title; $('end-sub').textContent = sub;
+  $('end-table').innerHTML = rows;
+  $('end-note').textContent = 'Switching the lights off…';
+  $('end').classList.add('on');
+}
+async function endSession() {
+  if (lockedByOther()) { alert(`${me.owner} is playing. Only they, or an admin who unlocks the board, can end the session.`); return; }
+  if (G && !G.over && $('game').classList.contains('on') && !confirm('End the session? The lights go off and the board stops. You can resume this game from the menu.')) return;
+  ended = true;
+  hideBanner(); $('pad').classList.remove('on'); $('fix').classList.remove('on');
+  showEnd();
+  // Lights first, so they go off at once; the board stops alongside.
+  const lights = fetch('cgi-bin/lights', { method: 'POST', body: 'end' }).then((r) => r.json()).catch(() => null);
+  const board = stopBoard();
+  const l = await lights; await board;
+  $('end-note').textContent = l && l.ok === false ? l.error : l ? 'Lights off · board stopped' : 'Board stopped';
+  toSetup();   // hands the board back and clears the live game on the passive displays
+}
+$('btn-end').onclick = endSession;
+// Phones: the less used game actions live in a sheet ("More"); each one simply presses the real button.
+function openMore() {
+  const list = $('more-list'); list.innerHTML = '';
+  for (const id of ['btn-fix', 'btn-reset', 'btn-lights', 'btn-passive', 'btn-menu', 'btn-end']) {
+    const src = $(id);
+    if (!src || src.hidden) continue;
+    const b = document.createElement('button');
+    b.textContent = src.textContent; b.disabled = src.disabled;
+    if (id === 'btn-end') b.className = 'danger';
+    b.onclick = () => { $('more').classList.remove('on'); src.click(); };
+    list.appendChild(b);
+  }
+  $('more').classList.add('on');
+}
+$('btn-more').onclick = openMore;
+$('more-close').onclick = () => $('more').classList.remove('on');
+// A tap on the dimmed area outside a sheet closes it, as on any phone.
+for (const id of ['more', 'pad', 'fix']) {
+  $(id).addEventListener('click', (e) => { if (e.target === $(id)) $(id).classList.remove('on'); });
+}
+$('end-session').onclick = endSession;
+$('end-menu').onclick = () => { $('end').classList.remove('on'); renderSetup(); };
+
 // ================= banners =================
 function showWin(match, name) {
   $('banner-title').textContent = match ? `${name} wins` : `Game shot, ${name}`;
@@ -1813,6 +2309,7 @@ function showWin(match, name) {
   if (match) {
     add('Rematch', async () => { if (!(await takeBoard())) return; G = newGame(G.cfg); ignoreUntilClear = api.darts.length > 0; startBoard().then(resetBoard); pingLights(); hideBanner(); save(); render(); });
     add('New game', () => { hideBanner(); toSetup(); });
+    add('End session', endSession);
     add('Undo last visit', undoOwned);
   } else {
     add('Continue', hideBanner);
@@ -1825,8 +2322,21 @@ function hideBanner() { $('banner').classList.remove('on'); }
 
 // ================= keypad =================
 let padIndex = 0, padMult = 1, padFix = null;   // padFix: { idx, k } when editing an earlier visit
+// The camera picture a dart was found in (Tikka Vision keeps them for the last throws); tap it for the next camera.
+let padCam = 0;
+function showEvidence(d) {
+  const box = $('pad-evidence');
+  if (!d || !d.id || !d.cams || !d.cams.length || engine.name !== 'tikka-vision') { box.hidden = true; return; }
+  const cam = d.cams[padCam % d.cams.length];
+  $('pad-img').src = `cgi-bin/boardimg?throw=${encodeURIComponent(d.id)}&cam=${encodeURIComponent(cam)}`;
+  $('pad-img-cap').textContent = `${d.name} as ${cam} saw it${d.unsure ? ' · the cameras disagreed' : ''}${d.cams.length > 1 ? ' · tap the picture for the next camera' : ''}`;
+  $('pad-img').onclick = () => { padCam++; showEvidence(d); };
+  $('pad-img').onerror = () => { box.hidden = true; };
+  box.hidden = false;
+}
 function openPad(i, fix) {
   padIndex = i; padMult = 1; padFix = fix || null;
+  padCam = 0; showEvidence(fix ? null : detectedDarts()[i]);
   $('pad-clear').textContent = padFix ? 'Remove dart' : 'Use detected dart';
   $('pad-clear').hidden = !!padFix && padFix.k >= G.history[padFix.idx].fixDarts.length;
   const mult = $('pad-mult'); mult.innerHTML = '';
@@ -1941,7 +2451,7 @@ function buildPayload() {
   const r = preview(false), darts = r.darts;
   const { sets, showLast } = hitSets(darts);
   return {
-    title: mod().title(G.cfg.opts), leg: G.leg, legsToWin: G.cfg.legsToWin, setsToWin: G.cfg.setsToWin || 1, round: G.round, over: G.over,
+    turns: lastTurns(), title: mod().title(G.cfg.opts), leg: G.leg, legsToWin: G.cfg.legsToWin, setsToWin: G.cfg.setsToWin || 1, round: G.round, over: G.over,
     winner: G.winner != null ? G.cfg.players[G.winner] : null, sets, showLast,
     players: G.cfg.players.map((name, i) => {
       const active = i === G.cur && !G.over;
@@ -1962,12 +2472,13 @@ function publish(force) {
 function paintPassive(d) {
   if (!d || d.none || !d.players) {
     $('p-title').textContent = 'Waiting for a game'; $('p-players').innerHTML = ''; $('p-hits').innerHTML = '';
-    $('p-board').innerHTML = boardSvg(); $('p-cap').textContent = ''; return;
+    $('p-board').innerHTML = boardSvg(); $('p-cap').textContent = ''; $('p-hist').innerHTML = ''; return;
   }
   $('p-title').textContent = `${d.title} · leg ${d.leg} · ${matchGoal(d.legsToWin, d.setsToWin)}${d.over && d.winner ? ' · ' + d.winner + ' wins' : ''}`;
   $('p-stamp').textContent = d.t && passiveMode === 'remote' ? 'Updated ' + new Date(d.t).toLocaleTimeString() : '';
   $('p-board').innerHTML = boardSvg() + dotsFor(d.sets || [], d.showLast);
   $('p-cap').textContent = d.showLast ? 'Last round' : `Round ${d.round} hits`;
+  $('p-hist').innerHTML = turnsHtml(d.turns);
   $('p-hits').innerHTML = (d.sets || []).map((v) => {
     const c = PCOL[v.p % PCOL.length], who = d.players[v.p] ? d.players[v.p].name : '';
     return v.darts.length ? `<span style="color:${c};border-color:${c}" ${d.showLast ? 'class="old"' : ''}>${esc(who)} ${v.darts.map((x) => esc(x.name)).join(' ')}</span>` : '';
@@ -2021,6 +2532,7 @@ async function lockCall(action) {
     if (!res.ok) return true;              // older Pi without the lock: behave as before
     const d = await res.json();
     me = { user: d.me || '', owner: d.owner || '', admin: !!d.admin };
+    if (d.engine) engine = { name: d.engine, port: d.port || (d.engine === 'tikka-vision' ? 3181 : 3180) };
     return d.ok !== false;
   } catch { return true; }
 }
@@ -2082,6 +2594,7 @@ async function signOut() {
 // Takes the board for this user; false (and the view-only screen) if someone else has it.
 async function takeBoard() {
   const ok = await lockCall('acquire');
+  if (ok) ended = false;
   applyLock();
   if (!ok && !lockedByOther()) alert('The board is in use by someone else.');
   return ok;
@@ -2163,6 +2676,11 @@ async function openSettings() {
   smsg('');
   $('setup').classList.remove('on'); $('settings').classList.add('on');
   $('api').value = apiBase();
+  $('engine-note').textContent = engine.name === 'tikka-vision'
+    ? `Board program: Tikka Vision (port ${engine.port}). Switch back on the Pi with: board-engine autodarts`
+    : `Board program: Autodarts (port ${engine.port}). Switch on the Pi with: board-engine tikka-vision`;
+  $('engine-tools').hidden = engine.name !== 'tikka-vision' || (!!me.user && !me.admin);     // calibrating is for admins
+  if (api.raw && api.raw.needsOrientation) $('engine-note').textContent += ' · The cameras still need to know which way the board is turned: throw one dart at the 20 and press Set orientation.';
   // Everyone can set this device's board address; users, lights and the lock are for admins.
   const admin = !me.user || me.admin;
   document.querySelectorAll('#settings [data-admin]').forEach((el) => { el.hidden = !admin; });
@@ -2352,6 +2870,12 @@ function renderSetup() {
   if (!$('manage').hidden) renderManage();
 
   chips($('opt-game'), GAME_ORDER.map((id) => [GAMES[id].name, id]), cfg.game, (v) => { cfg.game = v; store.set('cfg', cfg); });
+  // On a phone the games are one sideways-scrolling row: keep the chosen one in view.
+  const chosen = $('opt-game').querySelector('[aria-pressed="true"]');
+  if (chosen && $('opt-game').scrollWidth > $('opt-game').clientWidth + 4) {
+    const box = $('opt-game');
+    box.scrollLeft = Math.max(0, chosen.offsetLeft - box.clientWidth / 2 + chosen.offsetWidth / 2);
+  }
   const g = GAMES[cfg.game];
   $('game-rule').textContent = g.rule;
   $('rules-list').innerHTML = (RULES[cfg.game] || []).map((r) => `<li>${r}</li>`).join('');
@@ -2377,6 +2901,11 @@ function renderSetup() {
   $('api').value = apiBase();
   $('opt-voice').setAttribute('aria-pressed', String(store.get('voice', true)));
   $('opt-voice').textContent = store.get('voice', true) ? 'Score caller on' : 'Score caller off';
+  $('opt-dartcalls').setAttribute('aria-pressed', String(dartCallsOn()));
+  $('opt-dartcalls').textContent = dartCallsOn() ? 'Call each dart: on' : 'Call each dart: off';
+  $('opt-dartcalls').disabled = !store.get('voice', true);
+  $('opt-finishcalls').setAttribute('aria-pressed', String(finishCallsOn()));
+  $('opt-finishcalls').textContent = finishCallsOn() ? 'Call the finish: on' : 'Call the finish: off';
   $('opt-tips').setAttribute('aria-pressed', String(tipsOn()));
   $('opt-tips').textContent = tipsOn() ? 'Throw tips on' : 'Throw tips off';
   $('opt-awake').setAttribute('aria-pressed', String(awakeOn()));
@@ -2400,9 +2929,32 @@ $('btn-manage').onclick = () => {
   renderSetup();
   if (open && !roster.length) $('add-name').focus();
 };
-$('api-form').onsubmit = (e) => { e.preventDefault(); store.set('api', $('api').value.trim().replace(/\/$/, '')); smsg('Board address saved.'); poll(); };
+$('api-form').onsubmit = (e) => {
+  e.preventDefault();
+  const v = $('api').value.trim().replace(/\/$/, '');
+  // The Pi's own address with the board program's port is the default: don't pin it, so switching
+  // between Autodarts and Tikka Vision on the Pi needs nothing on this device.
+  if (!v || new RegExp('^http://' + location.hostname.replace(/[.]/g, '\\.') + ':318[01]$').test(v)) store.del('api'); else store.set('api', v);
+  $('api').value = apiBase();
+  smsg('Board address saved.'); poll();
+};
+// Tikka Vision only: calibrate the cameras and settle the board's turn from one dart at the 20.
+async function visionCall(action) {
+  smsg('Working…');
+  try {
+    // Through the Pi's CGI: it switches the LEDs on for a calibration and off again afterwards.
+    const res = await fetch('cgi-bin/board', { method: 'POST', body: action });
+    const d = await res.json();
+    if (d.ok) smsg(d.needs_orientation ? 'Calibrated. Now throw ONE dart at the 20 and press Set orientation.' : action === 'orient' ? 'Orientation set.' : 'Cameras calibrated.');
+    else smsg(d.message || (d.cameras && Object.values(d.cameras).map((c) => c.message).filter((m) => m && m !== 'ok')[0]) || 'Not done.', true);
+  } catch { smsg('The board service could not be reached.', true); }
+}
+$('cal-auto').onclick = () => visionCall('autocal');
+$('cal-orient').onclick = () => visionCall('orient');
 $('opt-voice').onclick = () => { store.set('voice', !store.get('voice', true)); renderSetup(); if (store.get('voice', true)) speak('Score caller on', true); };
 $('opt-voice-test').onclick = () => speak('One hundred and eighty!', true);
+$('opt-dartcalls').onclick = () => { store.set('dartCalls', !dartCallsOn()); renderSetup(); if (dartCallsOn()) speak('Treble 20', true); };
+$('opt-finishcalls').onclick = () => { store.set('finishCalls', !finishCallsOn()); renderSetup(); if (finishCallsOn()) speak('You require 40', true); };
 $('opt-tips').onclick = () => { store.set('tips', !tipsOn()); renderSetup(); };
 $('opt-awake').onclick = () => { store.set('awake', !awakeOn()); renderSetup(); };
 $('start').onclick = async () => {
@@ -2520,7 +3072,7 @@ if [ -n "$SECURE" ]; then
   printf 'Content-Type: text/html; charset=utf-8\r\nCache-Control: no-cache\r\n\r\n'
   cat <<EOF_GO
 <!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Darts</title><body style="margin:0;padding:32px;background:#04060d;color:#7d8db3;font:18px system-ui,sans-serif">Connecting…
+<title>Darts</title><body style="margin:0;padding:32px;background:#0c0a09;color:#a39890;font:18px system-ui,sans-serif">Connecting…
 <script>
 var secure = '$SECURE', hash = location.hash, gone = false;
 function go(ok) { if (gone) return; gone = true; location.replace(ok ? secure + hash : location.pathname + '?local' + hash); }
@@ -2545,7 +3097,7 @@ echo "== Shared player list"
 mkdir -p "$DIR/cgi-bin" "$DIR/data"
 cat > "$DIR/cgi-bin/players" <<'EOF_CGI'
 #!/bin/sh
-# Shared player list for Darts Scoreboard. GET returns it, POST replaces it.
+# Shared player list for Tikka. GET returns it, POST replaces it.
 F=/data/scoreboard/data/players.json
 . /data/scoreboard-auth/lock.sh
 csrf_check
@@ -2568,7 +3120,7 @@ cat > "$DIR/cgi-bin/lights" <<'EOF_LIGHTS'
 #!/bin/sh
 # Lights (LEDs) on the Wi-Fi plug. GET: {"installed","mode"}. POST "auto" | "on" | "off" sets the mode
 # (the player holding the board, or anyone while no game is locked); any other POST is a game-start
-# ping, which the lights service treats as activity.
+# ping, which the lights service treats as activity; "end" switches the lights off right away.
 . /data/scoreboard-auth/lock.sh
 csrf_check
 M=/data/lights/mode
@@ -2584,6 +3136,10 @@ if [ "$REQUEST_METHOD" = POST ]; then
       lock_mutex
       may_write || { echo '{"ok":false,"error":"Someone else is playing."}'; exit 0; }
       echo "$act" > "$M" ;;
+    end)   # the session is over: the lights service switches the plug off right away
+      lock_mutex
+      may_write || { echo '{"ok":false,"error":"Someone else is playing."}'; exit 0; }
+      [ -d /data/lights ] && touch /data/lights/end 2>/dev/null ;;
     *) touch /data/lights/ping 2>/dev/null ;;
   esac
 fi
@@ -2618,7 +3174,9 @@ EOF_GAME
 cat > "$DIR/cgi-bin/board" <<'EOF_BOARD'
 #!/bin/sh
 # Board access for pages opened over HTTPS (the internet link): state (GET); POST "start" starts
-# the board, any other POST resets it. Start and reset are allowed only for the game lock holder.
+# the board, "stop" stops it, "autocal" and "orient" calibrate the Tikka Vision cameras, any other POST resets it.
+# They are allowed only for the game lock holder. The board program is Autodarts (port 3180) or Tikka Vision
+# (3181), whichever "board-engine" last switched to.
 . /data/scoreboard-auth/lock.sh
 csrf_check
 printf 'Content-Type: application/json\r\nCache-Control: no-store\r\n\r\n'
@@ -2629,17 +3187,55 @@ if [ "$REQUEST_METHOD" = POST ]; then
   act=$(head -c "$len")
   lock_mutex
   may_write || { echo '{"ok":false,"locked":true}'; exit 0; }
-  if [ "$act" = start ]; then
-    # The board API starts on PUT, which busybox wget can't send.
-    printf 'PUT /api/start HTTP/1.0\r\nHost: 127.0.0.1\r\nContent-Length: 0\r\n\r\n' | nc -w 5 127.0.0.1 3180 >/dev/null 2>&1
-  else
-    wget -qO /dev/null -T 3 --post-data= http://127.0.0.1:3180/api/reset 2>/dev/null
-  fi
+  flock -u 9      # a calibration takes seconds: do not hold up the other pages' lock checks meanwhile
+  case "$act" in
+    start|stop)
+      # The board API starts and stops on PUT, which busybox wget can't send.
+      printf 'PUT /api/%s HTTP/1.0\r\nHost: 127.0.0.1\r\nContent-Length: 0\r\n\r\n' "$act" | nc -w 5 127.0.0.1 "$BOARD_PORT" >/dev/null 2>&1 ;;
+    autocal|orient)
+      [ "$BOARD_ENGINE" = tikka-vision ] || { echo '{"ok":false,"message":"Only Tikka Vision calibrates itself."}'; exit 0; }
+      [ -z "$ME" ] || is_admin || { echo '{"ok":false,"message":"Only admins can calibrate the cameras."}'; exit 0; }
+      case "$act" in autocal) path=auto ;; *) path="orient?number=20" ;; esac
+      M=/data/lights/mode
+      if [ "$act" = autocal ] && [ -w "$M" ]; then      # calibration needs the board lit: LEDs on, 5 s to settle
+        prev=$(cat "$M" 2>/dev/null)
+        case "$prev" in auto|off) ;; *) prev=auto ;; esac        # a forced "on" is not put back: LEDs off afterwards
+        echo on > "$M"; sleep 5
+      fi
+      if out=$(wget -qO- -T 120 --post-data= "http://127.0.0.1:$BOARD_PORT/api/config/calibration/$path" 2>/dev/null); then
+        :
+      else
+        out='{"ok":false,"message":"The camera service refused it (is the board empty and lit? was a dart thrown at the 20?)."}'
+      fi
+      if [ "$act" = autocal ] && [ -n "$prev" ]; then   # back to the old mode, LEDs off right away
+        echo "$prev" > "$M"; touch /data/lights/end 2>/dev/null
+      fi
+      echo "$out"
+      exit 0 ;;
+    *) wget -qO /dev/null -T 3 --post-data= "http://127.0.0.1:$BOARD_PORT/api/reset" 2>/dev/null ;;
+  esac
   echo '{"ok":true}'
   exit 0
 fi
-wget -qO- -T 3 http://127.0.0.1:3180/api/state 2>/dev/null || echo '{}'
+wget -qO- -T 3 "http://127.0.0.1:$BOARD_PORT/api/state" 2>/dev/null || echo '{}'
 EOF_BOARD
+cat > "$DIR/cgi-bin/boardimg" <<'EOF_IMG'
+#!/bin/sh
+# The camera picture a recent throw was found in, with the detected tip marked (Tikka Vision only):
+# boardimg?throw=ID&cam=NAME. Tikka Vision listens only inside the Pi; this hands the picture to signed-in users.
+. /data/scoreboard-auth/lock.sh
+id=$(printf '%s' "$QUERY_STRING" | sed -n 's/^\(.*&\)\{0,1\}throw=\([0-9]\{1,9\}\)\(&.*\)\{0,1\}$/\2/p')
+cam=$(printf '%s' "$QUERY_STRING" | sed -n 's/^\(.*&\)\{0,1\}cam=\([A-Za-z0-9_-]\{1,16\}\)\(&.*\)\{0,1\}$/\2/p')
+T=/tmp/boardimg.$$
+if [ "$BOARD_ENGINE" = tikka-vision ] && [ -n "$id" ] && [ -n "$cam" ] && \
+   wget -qO "$T" -T 5 "http://127.0.0.1:$BOARD_PORT/api/img/throw/$id/$cam" 2>/dev/null && [ -s "$T" ]; then
+  printf 'Content-Type: image/jpeg\r\nCache-Control: private, max-age=600\r\n\r\n'
+  cat "$T"
+else
+  printf 'Status: 404 Not Found\r\nContent-Type: text/plain\r\n\r\nno picture\n'
+fi
+rm -f "$T"
+EOF_IMG
 cat > "$DIR/cgi-bin/settings" <<'EOF_SET'
 #!/bin/sh
 # Settings page back end: users, lights and the game lock. GET returns them, POST changes one thing.
@@ -2807,9 +3403,9 @@ if [ "$REQUEST_METHOD" = POST ]; then
 fi
 o=$(lock_owner)
 admin=false; is_admin && admin=true
-printf '{"ok":%s,"me":"%s","owner":"%s","admin":%s}\n' "$ok" "$ME" "$o" "$admin"
+printf '{"ok":%s,"me":"%s","owner":"%s","admin":%s,"engine":"%s","port":%s}\n' "$ok" "$ME" "$o" "$admin" "$BOARD_ENGINE" "$BOARD_PORT"
 EOF_LOCK
-chmod 755 "$DIR/cgi-bin" "$DIR/cgi-bin/players" "$DIR/cgi-bin/lights" "$DIR/cgi-bin/game" "$DIR/cgi-bin/board" "$DIR/cgi-bin/lock" "$DIR/cgi-bin/settings"
+chmod 755 "$DIR/cgi-bin" "$DIR/cgi-bin/players" "$DIR/cgi-bin/lights" "$DIR/cgi-bin/game" "$DIR/cgi-bin/board" "$DIR/cgi-bin/lock" "$DIR/cgi-bin/settings" "$DIR/cgi-bin/boardimg"
 [ -f "$DIR/data/players.json" ] || echo '{"players":[],"last":[]}' > "$DIR/data/players.json"
 chown -R nobody "$DIR/data"
 
@@ -2827,6 +3423,10 @@ LOCK=/data/scoreboard/data/lock
 SEEN=/tmp/scoreboard-lock-seen
 LOCK_HOURS=$(sed -n 's/^LOCK_HOURS=\([0-9]\{1,2\}\)$/\1/p' /data/scoreboard/data/settings 2>/dev/null)
 [ -n "$LOCK_HOURS" ] && [ "$LOCK_HOURS" -ge 1 ] || LOCK_HOURS=3
+BOARD_ENGINE=$(sed -n 's/^BOARD_ENGINE=\(autodarts\|tikka-vision\)$/\1/p' /data/scoreboard/data/settings 2>/dev/null | head -1)
+BOARD_PORT=$(sed -n 's/^BOARD_PORT=\([0-9]\{3,5\}\)$/\1/p' /data/scoreboard/data/settings 2>/dev/null | head -1)
+[ -n "$BOARD_ENGINE" ] || BOARD_ENGINE=autodarts
+[ -n "$BOARD_PORT" ] || BOARD_PORT=3180
 ME=${REMOTE_USER:-}
 lock_mutex() { exec 9>/tmp/scoreboard-lock.mutex; flock 9; }
 lock_owner() {   # prints the user holding a live lock, or nothing
@@ -2858,7 +3458,7 @@ chown nobody "$AUTH/httpd.conf" "$AUTH/admins"; chmod 600 "$AUTH/httpd.conf" "$A
 
 cat > /usr/local/sbin/scoreboard-user <<'EOF_USER'
 #!/bin/sh
-# scoreboard-user: manage sign-in for the Darts Scoreboard scoreboard.
+# scoreboard-user: manage sign-in for the Tikka scoreboard.
 #   scoreboard-user add NAME      add a user (asks for a password); the first user becomes admin
 #   scoreboard-user passwd NAME   change a password
 #   scoreboard-user del NAME      remove a user
@@ -2915,9 +3515,9 @@ echo "== Creating the boot service"
 cat > /etc/init.d/scoreboard <<EOF
 #!/sbin/openrc-run
 name="scoreboard"
-description="Darts Scoreboard scoreboard on port $PORT"
+description="Tikka scoreboard on port $PORT"
 command="$HTTPD"
-command_args="-f -p $PORT -h $DIR -c $AUTH/httpd.conf -r Darts-Scoreboard"
+command_args="-f -p $PORT -h $DIR -c $AUTH/httpd.conf -r Tikka"
 command_user="nobody"
 supervisor="supervise-daemon"
 respawn_delay=5

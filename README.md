@@ -1,10 +1,14 @@
-# Darts Scoreboard for AutoDarts
+# Tikka
+
+*A darts scoreboard and board computer for [Autodarts](https://autodarts.io) boards. "Tikka" is Finnish for
+both a dart and a woodpecker, hence the logo: a woodpecker whose beak is the dart's point.*
 
 > **This code was generated with AI** (Claude by Anthropic), directed and tested by the author.
 > See [About this code](#about-this-code).
 
 Set up an [Autodarts](https://autodarts.io) board on a Raspberry Pi 4 or 5 running Alpine Linux,
-and add a darts scoreboard and game manager to it. The Pi serves one web page, so any tablet,
+and add Tikka, a darts scoreboard and game manager, to it. Tikka is an independent project, not made
+by or affiliated with Autodarts. The Pi serves one web page, so any tablet,
 phone, laptop or TV browser on your network can be the scoreboard. Detected darts come in
 automatically from the board service; the page runs the games itself.
 
@@ -20,13 +24,16 @@ automatically from the board service; the page runs the games itself.
 - **Help at the board:** throw tips for every game (X01 set-ups and checkouts, Cricket, Killer and
   more), and the screen stays on during a game.
 - **Displays:** a passive view for a TV (board, hits and the last 10 scores), scaled to any
-  screen size, and a compact phone layout. The look is a dark steel HUD with cyan and orange
-  neon (Orbitron and Chakra Petch fonts from Google Fonts, system fonts when offline).
+  screen size, and a compact phone layout. The look is an 80s arcade console: pixel fonts
+  (Press Start 2P and VT323 from Google Fonts, system fonts when offline), panels with pixel
+  corners and CRT scanlines, in the woodpecker's colours: crest red, plumage white and warm black.
 - **Sign-in and game lock:** users with passwords; starting a game locks the board to that
   user until the match ends, others watch read-only.
 - **Settings page:** users, lights and the game lock are changed from the scoreboard itself.
 - **Optional:** dartboard lights on a Wi-Fi plug, automatic backups and a watchdog, and access
   from the internet through Tailscale Funnel.
+- **Coming later:** Tikka Vision, Tikka's own camera scorer that can stand in for the Autodarts
+  board service. It is in development and not public yet; the scoreboard already works with it.
 
 ## Requirements
 
@@ -80,7 +87,12 @@ General steps for a fresh SD card (32 GB or more). See the
 
 ## Installation
 
-1. Download this repository to your computer.
+1. Download this repository to your computer:
+
+   ```sh
+   git clone https://github.com/teemusaila/Tikka.git
+   cd Tikka
+   ```
 
 2. Create your settings file from the example and fill it in:
 
@@ -234,7 +246,8 @@ are skipped.
 
 ### Login banner (`scripts/login-banner-install.sh`)
 
-An ASCII-art AUTODARTS name and dartboard in `/etc/motd`, shown when you log in over SSH.
+An 80s arcade title screen in `/etc/motd`, shown when you log in over SSH: TIKKA in big gradient
+letters over the pixel woodpecker-dart, then the board, network, CPU and which board program scores.
 
 ### Maintenance
 

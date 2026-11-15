@@ -17,7 +17,8 @@ cat > /usr/local/sbin/pi-backup <<'EOF'
 D=/data/backups
 mkdir -p "$D"; chmod 700 "$D"
 F="$D/pi-backup-$(date +%Y%m%d-%H%M).tar.gz"
-tar czf "$F" -C / data/autodarts data/scoreboard \
+PD=; [ -f /data/tikka-vision/config.toml ] && PD="data/tikka-vision/config.toml $(cd / && ls data/tikka-vision/calibration.json 2>/dev/null) $(cd / && ls -d data/tikka-vision/captures/refs 2>/dev/null)"
+tar czf "$F" -C / data/autodarts data/scoreboard $PD \
   media/mmcblk0p1/config.txt media/mmcblk0p1/cmdline.txt $(cd / && ls media/mmcblk0p1/*.apkovl.tar.gz) 2>/dev/null || [ $? -eq 1 ]
 (cd "$D" && sha256sum "$(basename "$F")" > "$F.sha256")
 ls -1t "$D"/pi-backup-*.tar.gz 2>/dev/null | tail -n +6 | while read -r old; do rm -f "$old" "$old.sha256"; done

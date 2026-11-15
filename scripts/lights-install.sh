@@ -9,7 +9,8 @@
 # starts or a dart is detected, and off after idle_minutes without any board activity.
 # A second rule turns the lights off after no_score_minutes (default 15) without a new dart, even if
 # other board events keep arriving.
-# The scoreboard also touches /data/lights/ping when a game starts, which counts as activity.
+# The scoreboard also touches /data/lights/ping when a game starts, which counts as activity, and
+# /data/lights/end when a session is ended: the lights go off right away.
 # Force the lights by writing "on", "off" or "auto" into /data/lights/mode.
 # Installs python3 (kept across reboots with lbu) and tinytuya in /data/lights/venv.
 
@@ -30,12 +31,13 @@ echo "== Writing the controller"
 cat > "$DIR/lights.py" <<'EOF_PY'
 #!/usr/bin/env python3
 """Autodarts lights: plug on at board activity, off after idle_minutes without any."""
-# This code was generated with AI (Claude by Anthropic). MIT License (Darts_Scoreboard_for_AutoDarts).
+# This code was generated with AI (Claude by Anthropic). MIT License (Tikka, github.com/teemusaila/Tikka).
 import json, os, sys, time, urllib.request, tinytuya
 
 DIR = "/data/lights"
 CONFIG = DIR + "/config.json"
 PING = DIR + "/ping"
+END = DIR + "/end"      # touched by the scoreboard when a session is ended: lights off right away
 cfg, IDLE, NOSCORE, API, cfg_mtime = {}, 600.0, 900.0, "", None
 
 
@@ -102,6 +104,13 @@ def ping_time():
         return None
 
 
+def end_time():
+    try:
+        return os.stat(END).st_mtime
+    except OSError:
+        return None
+
+
 def mode():
     try:
         m = open(DIR + "/mode").read().strip().lower()
@@ -122,6 +131,8 @@ def main():
     last_nt = last_state[3] if last_state else None
     last_mode = mode()
     last_ping = ping_time()
+    last_end = end_time()
+    hold_until = 0          # after a session ends, the board stopping must not count as activity
     checked_cfg = time.time()
     while True:
         time.sleep(1)
@@ -135,6 +146,14 @@ def main():
                     log("settings reloaded: idle %d min, no score %d min, plug %s" % (IDLE // 60, NOSCORE // 60, cfg.get("ip")))
             except Exception as e:
                 log("could not reload settings: %s" % e)
+        et = end_time()
+        if et != last_end:
+            last_end = et
+            log("session ended, lights off")
+            if switch(False):
+                on = False
+            last_activity = last_throw = None
+            hold_until = now + 12
         m = mode()
         if m != last_mode:
             last_mode = m
@@ -147,6 +166,10 @@ def main():
                 last_nt = last_state[3] if last_state else None
                 if on: last_activity = last_throw = now
         if m != "auto":
+            continue
+        if now < hold_until:
+            last_state, last_ping = board(), ping_time()
+            last_nt = last_state[3] if last_state else None
             continue
         state = board()
         act = False
@@ -188,8 +211,9 @@ EOF_PY
 echo "== Permissions"
 [ -f "$DIR/mode" ] || echo auto > "$DIR/mode"
 [ -f "$DIR/ping" ] || : > "$DIR/ping"
-chown -R nobody "$DIR/config.json" "$DIR/mode" "$DIR/ping"
-chmod 600 "$DIR/config.json"; chmod 666 "$DIR/mode" "$DIR/ping"
+[ -f "$DIR/end" ] || : > "$DIR/end"
+chown -R nobody "$DIR/config.json" "$DIR/mode" "$DIR/ping" "$DIR/end"
+chmod 600 "$DIR/config.json"; chmod 666 "$DIR/mode" "$DIR/ping" "$DIR/end"
 chmod 755 "$DIR" "$DIR/lights.py"
 
 echo "== Creating the boot service"

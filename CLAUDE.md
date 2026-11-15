@@ -1,4 +1,4 @@
-# Darts Scoreboard for AutoDarts
+# Tikka
 
 Installers for an Autodarts board on a Raspberry Pi 4/5 with Alpine Linux, plus a web scoreboard.
 Read README.md first; it is the user documentation. All code here was generated with AI and is MIT
