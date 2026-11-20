@@ -979,7 +979,7 @@ body::after {                                    /* CRT: scanlines and a dark ri
   <div class="arena">
     <div class="players" id="players"></div>
     <aside class="boardview" aria-label="Hits this round">
-      <svg id="board" viewBox="-1.12 -1.12 2.24 2.24" role="img" aria-label="Dartboard with this round's hits"></svg>
+      <svg id="board" viewBox="-112 -112 224 224" role="img" aria-label="Dartboard with this round's hits"></svg>
       <div class="side">
         <div class="cap" id="board-cap">This round</div>
         <div class="legend" id="legend"></div>
@@ -1000,7 +1000,7 @@ body::after {                                    /* CRT: scanlines and a dark ri
   <div class="pbar"><span id="p-title">Waiting for a game</span><span class="grow"></span><span id="p-lock"></span><span id="p-stamp"></span><button id="p-unlock" hidden>Force unlock</button><button id="p-exit">Exit</button></div>
   <div class="pmain">
     <div class="pboard">
-      <svg id="p-board" viewBox="-1.12 -1.12 2.24 2.24" role="img" aria-label="Dartboard with this round's hits"></svg>
+      <svg id="p-board" viewBox="-112 -112 224 224" role="img" aria-label="Dartboard with this round's hits"></svg>
       <div class="pcap" id="p-cap"></div>
       <div class="phits" id="p-hits"></div>
       <div class="history" id="p-hist" aria-label="Last three turns"></div>
@@ -2181,13 +2181,19 @@ function render() {
 }
 
 const PCOL = ['#00e5ff', '#ff7a00', '#a4ff3a', '#ffd23d', '#b58cff', '#ffffff', '#ff4d6d', '#3d8bff'];
-let boardBase = '';
-function boardSvg() {
-  if (boardBase) return boardBase;
+// The board is drawn in units of 1/100 of its radius (viewBox -112..112). The geometry is computed on a radius of 1
+// and scaled up in one group; the numbers and dart dots are placed in the large units directly. Safari (WebKit)
+// mis-sizes and mis-places SVG text with a font size below 1 and blurs badly at tiny filter sizes, so nothing
+// here is drawn in fractions of a unit. Each board has its own filter id: with two boards in the page, WebKit
+// would resolve a shared id to the first one, and a filter inside a hidden board draws nothing.
+const BS = 100;
+const boardBase = {};
+function boardSvg(id = 'board') {
+  if (boardBase[id]) return boardBase[id];
   const pt = (r, deg) => { const a = deg * Math.PI / 180; return `${(r * Math.cos(a)).toFixed(4)},${(-r * Math.sin(a)).toFixed(4)}`; };
   const wedge = (r1, r2, a1, a2, fill) => `<path d="M${pt(r1, a1)} L${pt(r2, a1)} A${r2},${r2} 0 0 1 ${pt(r2, a2)} L${pt(r1, a2)} A${r1},${r1} 0 0 0 ${pt(r1, a1)}Z" fill="${fill}"/>`;
-  let out = `<defs><filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="0.018" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><circle r="1.1" fill="#111111" stroke="#2a2a2a" stroke-width="0.006"/>`;
-  let rings = '';
+  let out = `<defs><filter id="glow-${id}" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="1.8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><g transform="scale(${BS})"><circle r="1.1" fill="#111111" stroke="#2a2a2a" stroke-width="0.006"/>`;
+  let rings = '', labels = '';
   ORDER.forEach((n, k) => {
     // wedge centred on 90 - k*18 degrees; outer arc runs clockwise on screen (sweep 1), inner arc back (sweep 0)
     const c = 90 - k * 18, a1 = c + 9, a2 = c - 9;
@@ -2195,22 +2201,22 @@ function boardSvg() {
     const single = dark ? '#151515' : '#f2e4bd', ring = dark ? '#d9242b' : '#1b8a3d';   // regular board colours
     out += wedge(R.outerBull, R.trebleIn, a1, a2, single) + wedge(R.trebleOut, R.doubleIn, a1, a2, single);
     rings += wedge(R.trebleIn, R.trebleOut, a1, a2, ring) + wedge(R.doubleIn, R.doubleOut, a1, a2, ring);
-    const [lx, ly] = pt(1.06, c).split(',');
-    out += `<text x="${lx}" y="${ly}" font-size="0.085" fill="#f2f2f2" text-anchor="middle" dominant-baseline="central" font-family="sans-serif">${n}</text>`;
+    const a = c * Math.PI / 180, lx = (106 * Math.cos(a)).toFixed(2), ly = (-106 * Math.sin(a) + 3).toFixed(2);   // +3: optical centre, no dominant-baseline (WebKit applies it unevenly)
+    labels += `<text x="${lx}" y="${ly}" font-size="8.5" fill="#f2f2f2" text-anchor="middle" font-family="-apple-system, system-ui, sans-serif">${n}</text>`;
   });
-  out += `<g>${rings}<circle r="${R.outerBull}" fill="#1b8a3d"/><circle r="${R.bull}" fill="#d9242b"/></g>`;
-  return (boardBase = out);
+  out += `<g>${rings}<circle r="${R.outerBull}" fill="#1b8a3d"/><circle r="${R.bull}" fill="#d9242b"/></g></g>${labels}`;
+  return (boardBase[id] = out);
 }
-function dotsFor(sets, showLast) {
+function dotsFor(sets, showLast, id = 'board') {
   let dots = '';
   sets.forEach((v) => {
     v.darts.forEach((d) => {
       const pos = dartPos(d);
       if (!pos) return;
       const col = PCOL[v.p % PCOL.length];
-      const r = v.live ? 0.05 : 0.038;
-      dots += `<circle cx="${pos.x.toFixed(4)}" cy="${(-pos.y).toFixed(4)}" r="${r}" fill="${col}" stroke="#0c0a09" stroke-width="0.012" filter="url(#glow)" opacity="${showLast ? 0.5 : 1}"/>`;
-      if (v.live) dots += `<circle cx="${pos.x.toFixed(4)}" cy="${(-pos.y).toFixed(4)}" r="0.08" fill="none" stroke="${col}" stroke-width="0.012"/>`;
+      const r = v.live ? 5 : 3.8, x = (pos.x * BS).toFixed(2), y = (-pos.y * BS).toFixed(2);
+      dots += `<circle cx="${x}" cy="${y}" r="${r}" fill="${col}" stroke="#0c0a09" stroke-width="1.2" filter="url(#glow-${id})" opacity="${showLast ? 0.5 : 1}"/>`;
+      if (v.live) dots += `<circle cx="${x}" cy="${y}" r="8" fill="none" stroke="${col}" stroke-width="1.2"/>`;
     });
   });
   return dots;
@@ -2472,11 +2478,11 @@ function publish(force) {
 function paintPassive(d) {
   if (!d || d.none || !d.players) {
     $('p-title').textContent = 'Waiting for a game'; $('p-players').innerHTML = ''; $('p-hits').innerHTML = '';
-    $('p-board').innerHTML = boardSvg(); $('p-cap').textContent = ''; $('p-hist').innerHTML = ''; return;
+    $('p-board').innerHTML = boardSvg('p'); $('p-cap').textContent = ''; $('p-hist').innerHTML = ''; return;
   }
   $('p-title').textContent = `${d.title} · leg ${d.leg} · ${matchGoal(d.legsToWin, d.setsToWin)}${d.over && d.winner ? ' · ' + d.winner + ' wins' : ''}`;
   $('p-stamp').textContent = d.t && passiveMode === 'remote' ? 'Updated ' + new Date(d.t).toLocaleTimeString() : '';
-  $('p-board').innerHTML = boardSvg() + dotsFor(d.sets || [], d.showLast);
+  $('p-board').innerHTML = boardSvg('p') + dotsFor(d.sets || [], d.showLast, 'p');
   $('p-cap').textContent = d.showLast ? 'Last round' : `Round ${d.round} hits`;
   $('p-hist').innerHTML = turnsHtml(d.turns);
   $('p-hits').innerHTML = (d.sets || []).map((v) => {
@@ -2993,8 +2999,10 @@ $('btn-menu').onclick = () => { if (G.over || confirm('End this game? You can re
 $('conn-text').ondblclick = () => $('raw').classList.toggle('on');
 
 function save() { if (G) store.set('game', G); }
-// Tells the Pi a game has started, so the lights come on even before the first dart.
-function pingLights() { try { fetch('cgi-bin/lights', { method: 'POST', keepalive: true }).catch(() => {}); } catch {} }
+// Tells the Pi a game has started, so the lights come on even before the first dart. A plain request: Safari
+// handles "keepalive" requests on a separate path that may not carry the sign-in. Starting the board through the
+// Pi (cgi-bin/board) signals the lights as well, so this is the second way, not the only one.
+function pingLights() { try { fetch('cgi-bin/lights', { method: 'POST', body: 'start' }).catch(() => {}); } catch {} }
 // Lights (LEDs): Automatic -> On -> Off. Shown when the lights service is installed.
 const LIGHT_LABEL = { auto: 'Lights: auto', on: 'Lights: on', off: 'Lights: off' };
 let lightsMode = null;
@@ -3190,6 +3198,9 @@ if [ "$REQUEST_METHOD" = POST ]; then
   flock -u 9      # a calibration takes seconds: do not hold up the other pages' lock checks meanwhile
   case "$act" in
     start|stop)
+      # A game took the board: count it as activity for the lights here on the Pi, so the LEDs come on
+      # whatever the browser does with its own lights ping (Safari on iPhone may not deliver it).
+      [ "$act" = start ] && touch /data/lights/ping 2>/dev/null
       # The board API starts and stops on PUT, which busybox wget can't send.
       printf 'PUT /api/%s HTTP/1.0\r\nHost: 127.0.0.1\r\nContent-Length: 0\r\n\r\n' "$act" | nc -w 5 127.0.0.1 "$BOARD_PORT" >/dev/null 2>&1 ;;
     autocal|orient)

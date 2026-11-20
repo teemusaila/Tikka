@@ -167,12 +167,15 @@ def main():
                 if on: last_activity = last_throw = now
         if m != "auto":
             continue
-        if now < hold_until:
-            last_state, last_ping = board(), ping_time()
-            last_nt = last_state[3] if last_state else None
-            continue
-        state = board()
         act = False
+        if now < hold_until:
+            # Just after a session ended: the board stopping is not activity, so its state changes are
+            # absorbed. A game start (ping) still counts: a new game may begin seconds after the last one ended.
+            last_state = board()
+            last_nt = last_state[3] if last_state else None
+            state = last_state
+        else:
+            state = board()
         if state is not None and state != last_state:
             last_state, act = state, True
             nt = state[3]
